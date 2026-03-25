@@ -103,7 +103,7 @@ Use `MutationObserver` with `{ childList: true, subtree: true }` on the conversa
 
 **PRD Reference:** Sprint 1, Task 2 (Debounce for streaming completion)
 **Depends on:** T031
-**Blocks:** T034
+**Blocks:** T033, T034
 **User Stories:** US-02
 **Estimated scope:** 1 hour
 
@@ -139,7 +139,7 @@ Track each message element's `textContent` length. On each mutation, reset a tim
 
 **PRD Reference:** Sprint 1, Task 2 (Store in chrome.storage.local); Sprint 1, Task 6 (Storage schema)
 **Depends on:** T032
-**Blocks:** T041
+**Blocks:** T034, T041
 **User Stories:** US-02
 **Estimated scope:** 30 min
 

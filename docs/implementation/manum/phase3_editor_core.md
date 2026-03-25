@@ -482,7 +482,7 @@ Use simple React state management (no need for a router library). App state: `{ 
 
 **PRD Reference:** Sprint 2, Task 7 (Extension <-> Web App communication)
 **Depends on:** T068
-**Blocks:** T072
+**Blocks:** T072, T073
 **User Stories:** US-09
 **Estimated scope:** 1 hour
 

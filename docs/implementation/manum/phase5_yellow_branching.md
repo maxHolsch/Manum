@@ -145,7 +145,7 @@ Query IndexedDB AI pool store with an index on `timestamp`. Filter: `entry.times
 
 **PRD Reference:** Sprint 3, Task 1 (Segment user text into chunks)
 **Depends on:** Nothing
-**Blocks:** T123
+**Blocks:** T123, T124
 **User Stories:** US-15
 **Estimated scope:** 30 min
 
@@ -181,7 +181,7 @@ Use a regex-based approach: split on `(?<=[.!?])\s+(?=[A-Z])` as a starting poin
 
 **PRD Reference:** Sprint 3, Task 1 (3-5 word n-gram overlap scoring)
 **Depends on:** T121, T122
-**Blocks:** T125, T126
+**Blocks:** T125
 **User Stories:** US-15
 **Estimated scope:** 1 hour
 
@@ -230,7 +230,7 @@ Compute overlap for n=3, n=4, n=5 and take a weighted average (higher n-grams ar
 
 **PRD Reference:** Sprint 3, Task 1 (Keyword/entity overlap as secondary signal)
 **Depends on:** T122
-**Blocks:** T126
+**Blocks:** T125
 **User Stories:** US-15
 **Estimated scope:** 30 min
 
@@ -266,7 +266,7 @@ Extract keywords: words that are capitalized (not at sentence start), contain di
 
 **PRD Reference:** Sprint 3, Task 1 (Map score to yellow intensity)
 **Depends on:** T123, T124
-**Blocks:** T127
+**Blocks:** T126, T127
 **User Stories:** US-15
 **Estimated scope:** 30 min
 
@@ -472,7 +472,7 @@ Wrap API calls in try/catch. On failure: (1) set a session flag `llmJudgeAvailab
 
 **PRD Reference:** Sprint 3, Task 4 (Git integration with isomorphic-git)
 **Depends on:** Nothing
-**Blocks:** T131, T134
+**Blocks:** T131, T133
 **User Stories:** US-17
 **Estimated scope:** 1 hour
 
@@ -613,7 +613,7 @@ Parse metadata from commit messages when reading the log. Use the `computeAttrib
 
 **PRD Reference:** Sprint 3, Task 4 (Git operations: commit, log, diff)
 **Depends on:** T130, T131
-**Blocks:** T135
+**Blocks:** T134
 **User Stories:** US-17
 **Estimated scope:** 1 hour
 
@@ -654,7 +654,7 @@ For diff: read the file at both commit SHAs, then compute a text diff. isomorphi
 
 **PRD Reference:** Sprint 3, Task 5 (Branch creation from tree)
 **Depends on:** T133
-**Blocks:** T135, T136, T139
+**Blocks:** T135, T138, T139
 **User Stories:** US-18
 **Estimated scope:** 1 hour
 

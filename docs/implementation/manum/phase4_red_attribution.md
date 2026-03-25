@@ -369,7 +369,7 @@ Use a `wired-toggle` or `wired-checkbox` from wired-elements. State managed via 
 
 **PRD Reference:** Sprint 2, Task 5 (Attribution overlay highlighting)
 **Depends on:** T097
-**Blocks:** T099
+**Blocks:** T099, T100
 **User Stories:** US-13
 **Estimated scope:** 1 hour
 

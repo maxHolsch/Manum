@@ -2,8 +2,8 @@
 
 ## Overview
 
-27 features organized in 4 phases. Features must be built in dependency order.
-Phases map to PRD sprints: Capture Layer, Editor + RED, YELLOW + Branching, Visualization + Analytics + Polish.
+27 features organized in 4 logical groups (mapping to the PRD's 4 sprints), implemented across 6 phases. Features must be built in dependency order.
+Logical groups map to PRD sprints; implementation phases split these further: Phase 1 (Foundation), Phase 2 (Capture), Phase 3 (Editor Core & Aesthetic), Phase 4 (RED Attribution), Phase 5 (YELLOW & Branching), Phase 6 (Visualization, Analytics & Polish).
 
 ### User Decisions Applied
 
@@ -73,8 +73,8 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** None
 - **Blocks:** F1, F2, F3, F4, F5
 - **User Stories:** US-01
-- **Tasks:** T010-T017
-- **PRD Reference:** Architecture Overview (tech stack, monorepo structure, testing tools)
+- **Tasks:** T010-T017, T041
+- **PRD Reference:** Architecture Overview (tech stack, monorepo structure, testing tools); Sprint 1, Task 6 (Storage schema)
 - **Key Deliverables:**
   - Monorepo structure with `packages/extension`, `packages/editor`, `packages/shared`
   - Vite + React + TypeScript configuration for editor package

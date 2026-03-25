@@ -70,7 +70,7 @@ Use pnpm workspaces (not npm or yarn). Root scripts should use `pnpm -r` for rec
 
 **PRD Reference:** Sprint 2, Task 1 (React + TipTap editor setup); Architecture Overview (tech stack)
 **Depends on:** T010
-**Blocks:** T013, T014, T016
+**Blocks:** T013, T014
 **User Stories:** US-01
 **Estimated scope:** 1 hour
 
@@ -109,7 +109,7 @@ Use `@vitejs/plugin-react` for React support. Set `base: './'` in Vite config so
 
 **PRD Reference:** Sprint 1, Task 1 (Manifest V3 scaffolding)
 **Depends on:** T010
-**Blocks:** T013, T014, T016
+**Blocks:** T013, T014
 **User Stories:** US-01
 **Estimated scope:** 1 hour
 

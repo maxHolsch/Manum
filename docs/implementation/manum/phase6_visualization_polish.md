@@ -149,7 +149,7 @@ Use `getStroke()` from perfect-freehand to generate SVG path data from a set of 
 
 **PRD Reference:** Sprint 4, Task 1 (Click to navigate to commit state)
 **Depends on:** T160
-**Blocks:** Nothing
+**Blocks:** T165
 **User Stories:** US-22
 **Estimated scope:** 30 min
 
@@ -451,7 +451,7 @@ interface SessionSummary {
 
 **PRD Reference:** Sprint 4, Task 5 (Attribution summary ratio bar)
 **Depends on:** T168
-**Blocks:** T170
+**Blocks:** T170, T171, T172
 **User Stories:** US-26
 **Estimated scope:** 30 min
 
@@ -634,7 +634,7 @@ Aggregate attribution ratios per document per day (or week). Plot three lines on
 
 **PRD Reference:** Sprint 4, Task 7 (Settings panel — scoring mode)
 **Depends on:** Nothing
-**Blocks:** T175
+**Blocks:** T175, T176
 **User Stories:** US-28
 **Estimated scope:** 30 min
 
@@ -743,7 +743,7 @@ Storage estimation: iterate over IndexedDB object stores and estimate size with 
 
 **PRD Reference:** Sprint 4, Task 8 (Bottom nav bar)
 **Depends on:** Nothing
-**Blocks:** T178
+**Blocks:** T178, T179, T180, T181
 **User Stories:** US-29
 **Estimated scope:** 30 min
 
