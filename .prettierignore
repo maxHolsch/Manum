@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+*.lock
+pnpm-lock.yaml
+# Pre-existing planning docs — not subject to format checks
+.agent/
+docs/
+MANUM_PLAN.md
