@@ -1,0 +1,57 @@
+/**
+ * T177: Bottom nav bar styles
+ */
+
+.manum-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(245, 240, 232, 0.85);
+  border-top: 1px solid var(--color-border, #D4C9A8);
+  z-index: 400;
+  padding: 0 1rem;
+}
+
+.manum-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0.4rem 1.2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: var(--font-meta, 'Courier Prime', monospace);
+  font-size: 0.7rem;
+  color: var(--color-gray, #8C8C7C);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.manum-nav-btn:hover {
+  background: rgba(74, 94, 138, 0.08);
+  color: var(--color-ink, #2C2C2C);
+}
+
+.manum-nav-btn.active {
+  color: var(--color-accent, #4A5E8A);
+  background: rgba(74, 94, 138, 0.12);
+}
+
+.manum-nav-btn .nav-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Padding for content above nav bar */
+.manum-app.has-nav {
+  padding-bottom: 56px;
+}

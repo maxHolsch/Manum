@@ -13,6 +13,7 @@ export interface CommitLogEntry {
   timestamp: number;
   author: string;
   metadata: CommitMetadata | null;
+  branch?: string;
 }
 
 export async function getCommitLog(_docId: string, depth = 100): Promise<CommitLogEntry[]> {

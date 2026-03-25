@@ -18,10 +18,13 @@
     "@tiptap/pm": "^3.20.5",
     "@tiptap/react": "^3.20.5",
     "@tiptap/starter-kit": "^3.20.5",
+    "chart.xkcd": "^1.1.15",
     "idb": "^8.0.3",
     "isomorphic-git": "^1.37.4",
+    "perfect-freehand": "^1.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-rough-fiber": "^0.0.8",
     "roughjs": "^4.6.6",
     "wired-elements": "3.0.0-rc.6"
   },

@@ -1,0 +1,59 @@
+/**
+ * T181: Marker highlight styles and diff highlighting
+ */
+
+/* Diff highlighting for T166 */
+.manum-diff-added {
+  background: rgba(82, 165, 82, 0.2);
+  border-bottom: 1px solid rgba(82, 165, 82, 0.5);
+}
+
+.manum-diff-removed {
+  text-decoration: line-through;
+  color: var(--color-red, #B05050);
+  background: rgba(176, 80, 80, 0.1);
+  opacity: 0.7;
+}
+
+/* SVG marker highlights */
+.manum-marker-highlight {
+  position: relative;
+  display: inline;
+}
+
+.manum-marker-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: -2px;
+  right: -2px;
+  height: 60%;
+  background: rgba(255, 220, 100, 0.35);
+  mix-blend-mode: multiply;
+  z-index: -1;
+  border-radius: 2px;
+}
+
+/* Historical view banner */
+.manum-history-banner {
+  background: rgba(74, 94, 138, 0.08);
+  border-bottom: 1px solid rgba(74, 94, 138, 0.2);
+  padding: 0.4rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-meta, 'Courier Prime', monospace);
+  font-size: 0.8rem;
+  color: var(--color-accent, #4A5E8A);
+}
+
+.manum-history-banner button {
+  background: var(--color-accent, #4A5E8A);
+  color: #fff;
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-meta, 'Courier Prime', monospace);
+  font-size: 0.75rem;
+}

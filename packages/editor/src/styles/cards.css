@@ -1,0 +1,61 @@
+/**
+ * T181: Index card and tape overlay styles
+ */
+
+.manum-card {
+  background: var(--color-paper, #F5F0E8);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.manum-card:nth-child(odd) {
+  transform: rotate(-0.3deg);
+}
+
+.manum-card:nth-child(even) {
+  transform: rotate(0.5deg);
+}
+
+.manum-card:hover {
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tape overlay on cards */
+.manum-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 14px;
+  background: rgba(210, 195, 155, 0.6);
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.manum-card-content {
+  padding: 0.75rem 1rem;
+}
+
+/* Timeline cards - no tape */
+.manum-timeline-card {
+  background: var(--color-paper, #F5F0E8);
+  border: 1px solid var(--color-border, #D4C9A8);
+  border-radius: 2px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow 150ms;
+}
+
+.manum-timeline-card:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.manum-timeline-card.active {
+  border-color: var(--color-accent, #4A5E8A);
+  box-shadow: 0 0 10px rgba(74, 94, 138, 0.25);
+}
