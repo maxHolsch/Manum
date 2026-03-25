@@ -1,6 +1,7 @@
 @import './fonts.css';
 @import './theme.css';
 @import './texture.css';
+@import './attribution.css';
 
 .manum-app {
   min-height: 100vh;

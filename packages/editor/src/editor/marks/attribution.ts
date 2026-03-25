@@ -52,17 +52,31 @@ export const AttributionMark = Mark.create<Record<string, unknown>>({
   },
 
   renderHTML({ HTMLAttributes }) {
+    const styleAttrs: Record<string, string> = {};
+    if (
+      HTMLAttributes['color'] === 'yellow' &&
+      HTMLAttributes['editDistance'] !== null &&
+      HTMLAttributes['editDistance'] !== undefined
+    ) {
+      const dist = HTMLAttributes['editDistance'] as number;
+      const clamped = Math.max(0.2, Math.min(0.7, dist));
+      const opacity = (0.4 - ((clamped - 0.2) / 0.5) * 0.3).toFixed(3);
+      styleAttrs['style'] = `--attribution-yellow-opacity: ${opacity}`;
+    }
     return [
       'span',
-      mergeAttributes(HTMLAttributes, {
-        'data-attribution-color': HTMLAttributes['color'],
-        'data-attribution-confidence': HTMLAttributes['confidence'],
-        'data-attribution-scoring-mode': HTMLAttributes['scoringMode'],
-        'data-attribution-paste-event-id': HTMLAttributes['pasteEventId'],
-        'data-attribution-original-paste': HTMLAttributes['originalPasteContent'],
-        'data-attribution-edit-distance': HTMLAttributes['editDistance'],
-        'data-attribution-created-at': HTMLAttributes['createdAt'],
-      }),
+      mergeAttributes(
+        {
+          'data-attribution-color': HTMLAttributes['color'],
+          'data-attribution-confidence': HTMLAttributes['confidence'],
+          'data-attribution-scoring-mode': HTMLAttributes['scoringMode'],
+          'data-attribution-paste-event-id': HTMLAttributes['pasteEventId'],
+          'data-attribution-original-paste': HTMLAttributes['originalPasteContent'],
+          'data-attribution-edit-distance': HTMLAttributes['editDistance'],
+          'data-attribution-created-at': HTMLAttributes['createdAt'],
+        },
+        styleAttrs,
+      ),
       0,
     ];
   },

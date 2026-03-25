@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
 import { coreExtensions } from '../editor/schema';
 import { AttributionMark } from '../editor/marks/attribution';
 import { BranchMarkerNode } from '../editor/nodes/branch-marker';
 import { Toolbar } from './Toolbar';
 import { ConnectionStatus } from './ConnectionStatus';
+import { AttributionOverlay } from './AttributionOverlay';
 import { useAutoSave } from '../hooks/useAutoSave';
 import { useExtensionSync } from '../hooks/useExtensionSync';
+import { usePasteHandler } from '../hooks/usePasteHandler';
+import { useEditTracker } from '../hooks/useEditTracker';
+import { useAttributionOverlay } from '../hooks/useAttributionOverlay';
 import type { DocumentRecord } from '../storage/documents';
 
 interface ManumEditorProps {
@@ -18,14 +23,29 @@ export function ManumEditor({ document, onBack }: ManumEditorProps) {
   const [saveStatus, setSaveStatus] = useState<string>('');
   const { connectionState } = useExtensionSync();
   const { scheduleAutoSave, saveStatus: autoSaveStatus } = useAutoSave(document.id);
+  const { showOverlay, toggleOverlay } = useAttributionOverlay();
+
+  // Use a ref for editor instance to break the initialization cycle
+  const editorInstanceRef = useRef<Editor | null>(null);
+  const { handlePaste } = usePasteHandler(editorInstanceRef);
 
   const editor = useEditor({
     extensions: [...coreExtensions, AttributionMark, BranchMarkerNode],
     content: document.content,
+    editorProps: {
+      handlePaste,
+    },
     onUpdate: ({ editor: e }) => {
       scheduleAutoSave(e);
     },
   });
+
+  // Keep ref updated with the latest editor instance
+  useEffect(() => {
+    editorInstanceRef.current = editor;
+  }, [editor]);
+
+  useEditTracker(editor);
 
   useEffect(() => {
     if (autoSaveStatus === 'saved') {
@@ -90,8 +110,9 @@ export function ManumEditor({ document, onBack }: ManumEditorProps) {
       </header>
 
       <Toolbar editor={editor} />
+      <AttributionOverlay editor={editor} showOverlay={showOverlay} onToggle={toggleOverlay} />
 
-      <div className="manum-editor-wrapper">
+      <div className={`manum-editor-wrapper${showOverlay ? ' show-attribution' : ''}`}>
         <EditorContent editor={editor} />
       </div>
     </div>
