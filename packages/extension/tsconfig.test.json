@@ -3,6 +3,6 @@
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "node",
-    "types": ["node", "jest"]
+    "types": ["node", "jest", "chrome"]
   }
 }
