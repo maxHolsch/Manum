@@ -2,9 +2,9 @@
 
 ## Current Status
 
-- **Phase:** 2 (complete)
-- **Tasks completed:** 20 / 88
-- **Test coverage:** 75 tests passing (unit + integration)
+- **Phase:** 3 (complete)
+- **Tasks completed:** 34 / 88
+- **Test coverage:** 108 tests passing (unit + integration)
 - **Last session:** 2026-03-25
 
 ## Phase Completion Workflow
@@ -111,3 +111,44 @@ Each phase follows an implement → review → fix cycle:
 **Coverage:** 75 tests, all passing; covers selectors, observer, debounce, storage, copy, tab tracking, visibility, clipboard, and integration pipeline
 **Quality:** `pnpm -r test` → 75 passed; `pnpm lint` → 0 warnings; `pnpm build` → clean
 **Next:** Phase 2 review pass, then Phase 3 — Editor Core
+
+### Session 3 — 2026-03-25
+
+**Goal:** Implement Phase 3 — Editor Core, Aesthetic, Persistence, and Sync
+**Completed:** T060, T061, T062, T063, T064, T065, T066, T067, T068, T069, T070, T071, T072, T073
+**Infrastructure Updates Applied:**
+- Installed `@tiptap/react`, `@tiptap/core`, `@tiptap/starter-kit`, `@tiptap/pm`, `roughjs`, `wired-elements`, `idb` as production deps
+- Installed `fake-indexeddb`, `@types/chrome` as devDependencies
+- `@types/roughjs` does not exist in npm registry; roughjs ships its own `.d.ts` files
+**Blockers:** None
+**Discoveries:**
+- TipTap v3 (3.20.5) `getJSON()` returns typed `DocumentType` (not `JSONContent`), with `NodeType | TextType` content — using `as JSONContent` cast in tests and hooks avoids type narrowing issues
+- TipTap v3 `StarterKit` API changed: `history` option renamed to `undoRedo`; `document` and `text` options only accept `false` (not `{}`)
+- `@typescript-eslint/no-namespace` forbids `declare global { namespace JSX {} }` — used `declare module 'react'` augmentation in a separate `.d.ts` file for wired-elements custom element types
+- `fake-indexeddb/auto` installs a single global IndexedDB that persists across tests in the same file; isolation requires passing unique DB names per test via extended `resetDB(name?)` API
+- Fake timers + IndexedDB promise resolution deadlock: tests that use `vi.useFakeTimers()` with real idb calls time out; workaround is to mock `updateDocument` in timer-dependent tests and only use real timers for IDB verification
+**Changes:**
+- `packages/editor/src/styles/` — `fonts.css`, `theme.css`, `texture.css`, `index.css` (manuscript palette)
+- `packages/editor/src/editor/schema.ts` — TipTap StarterKit coreExtensions
+- `packages/editor/src/editor/marks/attribution.ts` — AttributionMark with full attribute set
+- `packages/editor/src/editor/nodes/branch-marker.ts` — BranchMarkerNode (inline atom)
+- `packages/editor/src/components/ui/WiredButton.tsx` — wired-button wrapper
+- `packages/editor/src/components/ui/WiredToggle.tsx` — wired-toggle wrapper
+- `packages/editor/src/components/ui/RoughBorder.tsx` — rough.js SVG border component
+- `packages/editor/src/hooks/useRoughCanvas.ts` — reusable rough.js canvas hook
+- `packages/editor/src/components/Toolbar.tsx` — formatting toolbar
+- `packages/editor/src/components/ConnectionStatus.tsx` — extension connectivity indicator
+- `packages/editor/src/storage/db.ts` — IndexedDB schema via idb (documents, ai_pool, copy_records)
+- `packages/editor/src/storage/documents.ts` — CRUD: createDocument, getDocument, updateDocument, deleteDocument, listDocuments
+- `packages/editor/src/hooks/useAutoSave.ts` — debounced auto-save hook with save status
+- `packages/editor/src/hooks/useDocuments.ts` — document list management hook
+- `packages/editor/src/sync/extension-sync.ts` — chrome.storage → IndexedDB one-way sync
+- `packages/editor/src/hooks/useExtensionSync.ts` — sync hook with connection state tracking
+- `packages/editor/src/components/DocumentList.tsx` — document picker screen
+- `packages/editor/src/components/Editor.tsx` — full ManumEditor component
+- `packages/editor/src/App.tsx` — list/editor routing
+- `packages/editor/src/types/wired-elements.d.ts` — custom element type declarations
+- 7 new test files: schema, attribution-mark, branch-marker, documents, auto-save, extension-sync, graceful-degradation
+**Coverage:** 33 editor tests + 75 extension tests = 108 total, all passing
+**Quality:** `pnpm -r test` → 108 passed; `pnpm lint` → 0 warnings; `tsc --noEmit` → clean; `pnpm build` → clean
+**Next:** Phase 3 review pass, then Phase 4 — RED Attribution
