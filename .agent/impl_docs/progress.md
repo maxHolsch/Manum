@@ -2,9 +2,9 @@
 
 ## Current Status
 
-- **Phase:** 3 (complete)
-- **Tasks completed:** 34 / 88
-- **Test coverage:** 108 tests passing (unit + integration)
+- **Phase:** 6 (complete — all phases done)
+- **Tasks completed:** 88 / 88
+- **Test coverage:** 310 tests passing (235 editor + 75 extension)
 - **Last session:** 2026-03-25
 
 ## Phase Completion Workflow
@@ -237,3 +237,54 @@ Each phase follows an implement → review → fix cycle:
 **Coverage:** 185 editor tests + 75 extension tests = 260 total, all passing
 **Quality:** `pnpm -r test` → 260 passed; `pnpm lint` → 0 warnings; `tsc --noEmit` → clean
 **Next:** Phase 5 review pass, then Phase 6 — Visualization & Analytics
+
+### Session 6 — 2026-03-25
+
+**Goal:** Implement Phase 6 — Visualization, Analytics & Polish
+**Completed:** IU-4, IU-5, T160, T161, T162, T163, T164, T165, T166, T167, T168, T169, T170, T171, T172, T173, T174, T175, T176, T177, T178, T179, T180, T181
+**Infrastructure Updates Applied:**
+- IU-4: Added optional `branch` field to `CommitLogEntry` in `git/log.ts`
+- IU-5: Added `chart.xkcd@^1.1.15`, `perfect-freehand@^1.2.3`, `react-rough-fiber@^0.0.8` to editor deps
+- DB upgraded to version 2: added `analytics_sessions`, `commit_metadata`, `settings` object stores
+**Blockers:** None
+**Discoveries:**
+- `react-rough-fiber@^0.1.0` doesn't exist (latest is 0.0.8); used `^0.0.8`
+- `perfect-freehand` used directly for SVG connector lines rather than via react-rough-fiber to avoid React 19 peer dep conflict
+- Top-level `await` in vitest test files causes esbuild transform error; must use `async` inside test/beforeEach callbacks
+- `afterEach` must be imported from vitest explicitly (not injected globally in this config)
+**Changes:**
+- `packages/editor/src/analytics/event-bus.ts` — pub/sub event bus with buffering (T167)
+- `packages/editor/src/analytics/session.ts` — session aggregation with 5-min gap detection (T168)
+- `packages/editor/src/storage/settings-store.ts` — settings CRUD via IndexedDB (T174)
+- `packages/editor/src/storage/export.ts` — data export, size estimation, cleanup (T176)
+- `packages/editor/src/storage/db.ts` — upgraded to v2 with 3 new stores
+- `packages/editor/src/git/commit-metadata.ts` — LLM commit title generation + fallback (T163, T164)
+- `packages/editor/src/git/history.ts` — read document at specific commit (T162)
+- `packages/editor/src/git/log.ts` — added `branch?` field to CommitLogEntry (IU-4)
+- `packages/editor/src/hooks/useKeyboardShortcuts.ts` — keyboard shortcuts hook (T179)
+- `packages/editor/src/components/Timeline.tsx` — commit timeline with LLM metadata (T160)
+- `packages/editor/src/components/TimelineEntry.tsx` — individual timeline entry card (T160)
+- `packages/editor/src/components/TimelineConnector.tsx` — hand-drawn SVG lines via perfect-freehand (T161)
+- `packages/editor/src/components/DiffScrubber.tsx` — slider for commit navigation (T165)
+- `packages/editor/src/components/DiffView.tsx` — green/red diff highlighting (T166)
+- `packages/editor/src/components/BottomNav.tsx` — Write/Branch/Insights mode nav (T177)
+- `packages/editor/src/components/Settings.tsx` — settings panel: scoring, API key, export (T174-T176)
+- `packages/editor/src/components/Onboarding.tsx` — 5-step onboarding flow (T180)
+- `packages/editor/src/components/onboarding/Steps.tsx` — onboarding step content (T180)
+- `packages/editor/src/components/analytics/AttributionBar.tsx` — attribution ratio bar (T169)
+- `packages/editor/src/components/analytics/SessionTimeline.tsx` — writing/AI/idle chart (T170)
+- `packages/editor/src/components/analytics/EditingCharts.tsx` — edits/pastes charts + branch stats (T171)
+- `packages/editor/src/components/analytics/ProjectComparison.tsx` — cross-doc ratios (T172)
+- `packages/editor/src/components/analytics/TrendChart.tsx` — AI dependency trend chart (T173)
+- `packages/editor/src/components/analytics/Dashboard.tsx` — tabbed analytics dashboard container (T169-T173)
+- `packages/editor/src/components/BranchDrawer.tsx` — added Timeline tab, animated slide transition (T160, T178)
+- `packages/editor/src/components/Editor.tsx` — wired history nav, scrubber, shortcuts, settings, drawer animation (T162, T165, T178, T179)
+- `packages/editor/src/App.tsx` — onboarding check, bottom nav, insights mode (T177, T180)
+- `packages/editor/src/styles/nav.css` — bottom nav bar styles (T177)
+- `packages/editor/src/styles/drawer.css` — drawer slide animation styles (T178)
+- `packages/editor/src/styles/cards.css` — index card + tape overlay styles (T181)
+- `packages/editor/src/styles/highlights.css` — diff and marker highlight styles (T166, T181)
+- 7 new test files: event-bus (8), session-aggregation (9), commit-metadata (9), settings (6), export (5), keyboard-shortcuts (9), diff-view (4)
+**Coverage:** 235 editor tests + 75 extension tests = 310 total, all passing
+**Quality:** `pnpm -r test` → 310 passed; `pnpm lint` → 0 warnings; `tsc --noEmit` → clean (editor)
+**Next:** Phase 6 complete — all 6 phases implemented
