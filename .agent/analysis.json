@@ -1,0 +1,362 @@
+{
+  "output_dir": "docs/implementation/manum",
+  "features": [
+    {
+      "id": "F1",
+      "name": "AI Response Capture",
+      "description": "Chrome extension content script that observes Claude.ai DOM via MutationObserver, debounces streaming responses, and stores complete AI messages with timestamps and IDs in chrome.storage.local as the AI knowledge pool."
+    },
+    {
+      "id": "F2",
+      "name": "Copy Event Capture",
+      "description": "Listens for copy events on Claude.ai pages, captures selected text with source message ID and timestamp, stores as copy records in chrome.storage.local for later paste matching."
+    },
+    {
+      "id": "F3",
+      "name": "Tab Focus Tracking",
+      "description": "Tracks tab switches between editor, Claude.ai, and other tabs using chrome.tabs.onActivated and document.visibilitychange, logging timestamped events for behavioral analytics."
+    },
+    {
+      "id": "F4",
+      "name": "Offscreen Clipboard Access",
+      "description": "Manifest V3 offscreen document for navigator.clipboard.readText() as a fallback for pastes that don't match any copy record (unlinked paste detection)."
+    },
+    {
+      "id": "F5",
+      "name": "TipTap Rich Text Editor",
+      "description": "React-based editor using TipTap (ProseMirror) with section-based document model, basic formatting toolbar, manuscript aesthetic (Special Elite font, parchment background, centered 768px column)."
+    },
+    {
+      "id": "F6",
+      "name": "RED Attribution (Direct Paste Detection)",
+      "description": "Detects pastes from AI by cross-referencing clipboard data with copy records and AI knowledge pool. Tags matched pastes as RED with source links. Includes unlinked paste fallback via substring matching (>80% verbatim match threshold)."
+    },
+    {
+      "id": "F7",
+      "name": "Edit Distance Tracking and State Transitions",
+      "description": "Tracks edits within RED-tagged spans, computes running edit distance from original paste. Transitions: RED→YELLOW at 20% change, RED→GREEN at 70% change. Debounced re-scoring on each edit."
+    },
+    {
+      "id": "F8",
+      "name": "Attribution Overlay UI",
+      "description": "Toggle button to show/hide attribution highlighting. When on, displays green/yellow/red background colors on spans with yellow gradient based on edit distance. Summary bar shows percentage breakdown."
+    },
+    {
+      "id": "F9",
+      "name": "Document Persistence",
+      "description": "IndexedDB storage for documents, attribution spans, and synced AI knowledge pool. Auto-save on edit (debounced 2s). Document list view for managing multiple documents."
+    },
+    {
+      "id": "F10",
+      "name": "Extension-Editor Data Sync",
+      "description": "Synchronizes AI knowledge pool and copy records from chrome.storage to editor's IndexedDB via chrome.storage.onChanged or polling fallback. Graceful degradation when extension is disconnected."
+    },
+    {
+      "id": "F11",
+      "name": "YELLOW Attribution (Idea Overlap Detection)",
+      "description": "N-gram matching engine that segments user text into sentences, compares against temporally-gated AI pool entries using 3-5 word n-gram overlap and keyword/entity overlap, maps scores to yellow intensity gradient."
+    },
+    {
+      "id": "F12",
+      "name": "LLM Judge Scoring Mode",
+      "description": "Optional Claude Haiku-based semantic similarity scoring. Batches candidate pairs, returns 0-1 similarity scores and green/yellow/red classifications. Includes result caching and graceful fallback to edit-distance mode."
+    },
+    {
+      "id": "F13",
+      "name": "Temporal Gating",
+      "description": "Enforces temporal priority: AI pool matches only count if ai_timestamp < span.created_at. If user wrote it before the AI said something similar, the text stays GREEN."
+    },
+    {
+      "id": "F14",
+      "name": "Git Integration (isomorphic-git)",
+      "description": "Initializes git repository in IndexedDB via lightning-fs. Auto-commits document state as JSON on save. Stores commit metadata including timestamp, word count delta, and attribution snapshot."
+    },
+    {
+      "id": "F15",
+      "name": "Branch Creation (Tree and Selection)",
+      "description": "Branch from tree (plus button creates branch from HEAD) and branch from selection (highlight paragraph, create branch of that section with L-shaped markers). Auto-generated branch names with rename option."
+    },
+    {
+      "id": "F16",
+      "name": "Branch Preview Scroller",
+      "description": "Horizontal scroller at bottom of branched sections showing tabs for each branch that modifies that section. Clicking a tab previews the section content on that branch."
+    },
+    {
+      "id": "F17",
+      "name": "Branch Merge",
+      "description": "Three-way merge on text content (common ancestor, current, incoming). Auto-merge for simple cases, conflict UI with accept/reject controls for overlapping edits. Initiated by double-clicking branch number."
+    },
+    {
+      "id": "F18",
+      "name": "Commit Timeline Visualizer",
+      "description": "Vertical timeline in side drawer ('The Paper Drawer') with hand-drawn SVG connector lines. Each entry shows timestamp, title, summary, branch indicator. Click to navigate to commit state."
+    },
+    {
+      "id": "F19",
+      "name": "LLM-Generated Commit Metadata",
+      "description": "Sends diffs to Claude Haiku to generate short titles, summaries, and conceptual change descriptions for each commit. Fallback to auto-generated titles from word count delta + timestamp."
+    },
+    {
+      "id": "F20",
+      "name": "Diff Scrubbing View",
+      "description": "Scrub slider or click timeline entries to view any commit state. Additions highlighted green, deletions highlighted red (diff from previous commit)."
+    },
+    {
+      "id": "F21",
+      "name": "Behavioral Analytics",
+      "description": "Event bus capturing edit events, paste events, deletions, scroll-away-from-cursor, active time, tab switches, AI usage, branch creation, and branch sizes. Aggregated into per-document per-session summaries in IndexedDB."
+    },
+    {
+      "id": "F22",
+      "name": "Analytics Dashboard",
+      "description": "Attribution summary ratio bar, session timeline (writing vs AI consultation vs idle), editing pattern charts, branch statistics. Uses hand-drawn chart style (chart.xkcd + react-rough-fiber)."
+    },
+    {
+      "id": "F23",
+      "name": "Cross-Project Comparison",
+      "description": "Document list with per-document attribution ratios. Trend chart showing green/yellow/red ratio changes over time across projects. Tracks AI dependency trajectory."
+    },
+    {
+      "id": "F24",
+      "name": "Settings Panel",
+      "description": "Scoring mode toggle, connected AI platforms status, storage usage and cleanup, data export (documents, attribution, analytics)."
+    },
+    {
+      "id": "F25",
+      "name": "Manuscript Aesthetic and Polish",
+      "description": "Hand-drawn UI using rough.js, wired-elements, chart.xkcd, perfect-freehand, PaperCSS. Paper textures via css-doodle + SVG filters. Marker highlights, sketchy borders, typewriter/handwriting fonts. Side drawer animations, bottom nav bar, keyboard shortcuts, onboarding flow."
+    }
+  ],
+  "personas": [
+    {
+      "name": "Reflective Writer",
+      "description": "Writers, essayists, and thinkers who use AI chat tools (specifically Claude) as part of their creative process. They want intellectual honesty about which ideas are theirs vs AI-influenced. They value the writing process itself and worry about losing their ability to think independently."
+    },
+    {
+      "name": "Academic Researcher",
+      "description": "Researchers who use AI to help draft papers, explore ideas, or structure arguments. They need clear attribution for academic integrity and want to track how their thinking evolves across drafts and branches."
+    }
+  ],
+  "constraints": [
+    "Chrome extension must use Manifest V3 (content scripts, service worker, offscreen documents — no background pages)",
+    "Claude.ai only — no support for ChatGPT or other AI platforms",
+    "Single-user only — no collaboration, shared pools, or multi-user sync",
+    "Editor must work when extension is disconnected (graceful degradation)",
+    "LLM judge mode must fall back to edit-distance mode if Haiku API is unavailable",
+    "AI pool growth is unbounded for now (deferred optimization)",
+    "Section granularity for branching is paragraph-level TipTap nodes only",
+    "DOM selectors for Claude.ai are fragile and will break — must be easy to update",
+    "Attribution overlay is OFF by default",
+    "Specific visual library stack mandated: rough.js, wired-elements, chart.xkcd, perfect-freehand, PaperCSS, css-doodle, Special Elite / Caveat / Courier Prime fonts",
+    "Pre-commit tests must complete in under 30 seconds"
+  ],
+  "risks": [
+    {
+      "risk": "Claude.ai DOM structure changes break the content script selectors",
+      "mitigation": "Use resilient selectors (data-* attributes, ARIA roles). Version mock DOM structures in tests. Selector module is isolated for easy updates."
+    },
+    {
+      "risk": "isomorphic-git + lightning-fs performance degrades with large documents or many branches in IndexedDB",
+      "mitigation": "Profile early in Sprint 3. Document state is JSON (small per commit). Consider pruning old commits or compressing git objects if needed."
+    },
+    {
+      "risk": "Edit distance computation is too slow for real-time re-scoring during rapid typing",
+      "mitigation": "Debounce re-scoring (2s inactivity). Use efficient Levenshtein implementation. Only re-score the edited span, not the full document."
+    },
+    {
+      "risk": "Claude Haiku API costs escalate with frequent LLM judge calls",
+      "mitigation": "Cache LLM results keyed on content hashes. Batch candidate pairs. LLM mode is opt-in (edit-distance is default). Rate-limit API calls."
+    },
+    {
+      "risk": "N-gram overlap produces false positives (common phrases flagged as AI-influenced)",
+      "mitigation": "Require minimum overlap threshold. Exclude common n-grams (stopword filtering). Combine n-gram score with keyword/entity overlap as secondary signal."
+    },
+    {
+      "risk": "Three-way merge on prose text produces confusing results",
+      "mitigation": "Paragraph-level granularity reduces conflicts. For genuine conflicts, show both versions with clear accept/reject UI rather than attempting character-level merge."
+    },
+    {
+      "risk": "The hand-drawn UI library stack (rough.js, wired-elements, chart.xkcd, etc.) may have compatibility issues or limited maintenance",
+      "mitigation": "rough.js and wired-elements are mature and stable. chart.xkcd is smaller but the integration via react-rough-fiber reduces direct dependency. Fallback to styled SVG if any library is abandoned."
+    },
+    {
+      "risk": "chrome.storage.local has a 10MB default quota which may be insufficient for large AI knowledge pools",
+      "mitigation": "Request unlimitedStorage permission in manifest. Implement LRU eviction as safety net (Sprint 1 task 6)."
+    }
+  ],
+  "non_goals": [
+    "Support for AI platforms other than Claude.ai (no ChatGPT, Gemini, etc.)",
+    "Multi-user collaboration or shared document editing",
+    "Cloud sync or server-side storage — everything is local (browser storage)",
+    "AI pool eviction strategy optimization (deferred)",
+    "Arbitrary text range selection for branching (paragraph-level only)",
+    "Mobile or tablet support",
+    "Real-time collaborative editing",
+    "Automatic plagiarism detection against external sources (only checks against user's own AI interactions)"
+  ],
+  "architecture_notes": [
+    "Two-part system: Chrome extension (capture layer) + Web app (editor + attribution engine), communicating via chrome.storage",
+    "TipTap (ProseMirror) as the editor framework — chosen for custom mark/node extensibility needed for attribution spans and branch markers",
+    "isomorphic-git with lightning-fs backed by IndexedDB for real git operations in the browser (branches, commits, diffs, merges)",
+    "Attribution engine is layered: paste tracker → edit distance monitor → idea overlap detector → optional LLM judge",
+    "Temporal gating is a core invariant: if the user wrote it before the AI said it, it stays GREEN regardless of similarity",
+    "Yellow→Green transition is explicitly impossible per the PRD — once AI said it first, the overlap is permanent",
+    "Two scoring modes (edit-distance vs LLM judge) are toggleable in settings, with LLM judge falling back to edit-distance on failure",
+    "Manuscript/literary aesthetic is a core design requirement, not a nice-to-have — specific library stack mandated (rough.js, wired-elements, etc.)",
+    "Sprint structure is sequential: capture layer → editor + RED → YELLOW + branching → visualization + analytics + polish"
+  ],
+  "adrs_created": [
+    "ADR-0001: Dual Storage Architecture (chrome.storage + IndexedDB)",
+    "ADR-0002: Layered Attribution Engine with Dual Scoring Modes",
+    "ADR-0003: Extension-to-Editor Communication via chrome.storage + Message Passing"
+  ],
+  "adrs_reviewed": [],
+  "estimated_complexity": "large",
+  "technology_decisions": [
+    {
+      "area": "Editor Framework",
+      "chosen": "TipTap (ProseMirror-based)",
+      "alternatives_considered": ["Slate.js", "Lexical (Meta)"],
+      "rationale": "PRD explicitly specifies TipTap. It's the right choice — headless and fully styleable, with excellent custom mark/node extensibility needed for attribution span marks and branch markers. ProseMirror's document model maps cleanly to the structured JSON stored in git. Slate.js has a less stable API; Lexical is newer with a smaller ecosystem."
+    },
+    {
+      "area": "Browser Git Implementation",
+      "chosen": "isomorphic-git + lightning-fs",
+      "alternatives_considered": ["Custom versioning system", "Automerge CRDT"],
+      "rationale": "PRD explicitly specifies isomorphic-git. It provides real git semantics (branches, commits, diffs, three-way merge) in the browser. lightning-fs provides the filesystem abstraction backed by IndexedDB. A custom system would reimplement poorly; Automerge would be overkill for single-user and adds complexity."
+    },
+    {
+      "area": "Build Tool",
+      "chosen": "Vite",
+      "alternatives_considered": ["Webpack", "esbuild direct"],
+      "rationale": "PRD specifies Vite + React + TypeScript for the web app. Vite is the standard for modern React projects — fast dev server with HMR, optimized production builds, excellent TypeScript support. Also well-suited for building Chrome extensions with plugins like crxjs/vite-plugin."
+    },
+    {
+      "area": "Edit Distance Algorithm",
+      "chosen": "Levenshtein distance (character-level)",
+      "alternatives_considered": ["Jaro-Winkler", "Cosine similarity on word vectors", "diff-match-patch (Google)"],
+      "rationale": "Character-level Levenshtein aligns with the PRD's percentage-based thresholds (20%, 70% of characters changed). diff-match-patch is a strong alternative for the actual diff computation but Levenshtein gives a single normalized score. May use diff-match-patch internally for efficient computation. Jaro-Winkler is better for short strings; cosine similarity is better for semantic tasks (covered by LLM judge mode)."
+    },
+    {
+      "area": "N-gram Overlap for YELLOW Detection",
+      "chosen": "Custom n-gram extraction + scoring",
+      "alternatives_considered": ["compromise.js (NLP library)", "wink-nlp"],
+      "rationale": "The n-gram matching needed is straightforward (3-5 word windows, keyword overlap). A lightweight custom implementation avoids large NLP library dependencies. compromise.js or wink-nlp would add bundle size for minimal benefit. Keyword/entity extraction can use simple heuristics (capitalized words, technical terms)."
+    },
+    {
+      "area": "Chrome Extension Build Pipeline",
+      "chosen": "CRXJS Vite Plugin or manual Vite config",
+      "alternatives_considered": ["Webpack + chrome-extension-boilerplate", "Plasmo framework"],
+      "rationale": "CRXJS integrates Manifest V3 extension building into Vite, which is already the web app build tool. Sharing the build tool reduces complexity. Plasmo is a higher-level framework that may conflict with the specific architecture choices in the PRD. Manual Vite config is a fallback if CRXJS has issues."
+    },
+    {
+      "area": "Testing Framework",
+      "chosen": "Vitest (web app) + Jest (extension)",
+      "alternatives_considered": ["Jest for both", "Vitest for both"],
+      "rationale": "PRD specifies Vitest for the web app and Jest for extension scripts. Vitest integrates naturally with Vite. Jest is more established for Node.js-style testing of extension scripts. E2E tests use Chrome DevTools MCP as specified in the PRD."
+    },
+    {
+      "area": "Hand-drawn UI Library Stack",
+      "chosen": "rough.js + wired-elements + chart.xkcd + react-rough-fiber + perfect-freehand + PaperCSS",
+      "alternatives_considered": ["Standard UI libraries (shadcn, Radix) with custom styling"],
+      "rationale": "PRD mandates this specific stack for the manuscript aesthetic. These libraries are all actively maintained and work together. rough.js (hand-drawn shapes) and wired-elements (sketchy UI components) are the most critical. chart.xkcd via react-rough-fiber bridges React rendering with hand-drawn charts."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "How should the web editor be hosted/packaged?",
+      "options": [
+        {
+          "value": "extension-page",
+          "label": "Chrome Extension Page",
+          "description": "Editor runs as a chrome-extension:// page. Simplest chrome.storage access, no CORS issues, but tightly coupled to Chrome and cannot be accessed outside the browser with the extension installed."
+        },
+        {
+          "value": "localhost",
+          "label": "Local Dev Server (Vite)",
+          "description": "Editor runs on localhost during development. Requires message-passing or polling to access chrome.storage. More flexible for development but adds communication complexity."
+        },
+        {
+          "value": "hybrid",
+          "label": "Hybrid (Extension page in production, localhost in dev)",
+          "description": "Use Vite dev server during development with polling fallback, package as chrome-extension:// page for production. Best of both worlds but requires abstracting the storage access layer."
+        }
+      ],
+      "default": "hybrid"
+    },
+    {
+      "id": "q2",
+      "question": "How should the extension and web app codebases be organized?",
+      "options": [
+        {
+          "value": "monorepo",
+          "label": "Monorepo with shared packages",
+          "description": "Single repo with packages/extension, packages/editor, packages/shared (types, attribution logic). Uses npm/pnpm workspaces. Shared code is easy to maintain but adds build complexity."
+        },
+        {
+          "value": "single-package",
+          "label": "Single package with separate entry points",
+          "description": "One package.json, Vite builds both extension and editor from different entry points. Simpler setup, shared code by import. May get unwieldy as the project grows."
+        },
+        {
+          "value": "two-repos",
+          "label": "Separate repositories",
+          "description": "Independent repos for extension and editor. Clean separation but duplicates shared types and attribution logic. Harder to keep in sync."
+        }
+      ],
+      "default": "monorepo"
+    },
+    {
+      "id": "q3",
+      "question": "What strategy should be used for the edit distance computation?",
+      "options": [
+        {
+          "value": "levenshtein",
+          "label": "Character-level Levenshtein distance",
+          "description": "Simple, well-understood algorithm. Directly maps to the PRD's percentage thresholds. O(n*m) complexity — may need optimization for large text spans but works well for paragraph-level comparisons."
+        },
+        {
+          "value": "diff-match-patch",
+          "label": "Google's diff-match-patch library",
+          "description": "More sophisticated diff algorithm that handles insertions, deletions, and moves efficiently. Produces a patch that can be used to compute a normalized distance. Better performance on longer texts but slightly more complex to integrate."
+        }
+      ],
+      "default": "diff-match-patch"
+    },
+    {
+      "id": "q4",
+      "question": "Should the LLM judge mode use the Anthropic SDK directly or go through a lightweight backend proxy?",
+      "options": [
+        {
+          "value": "direct",
+          "label": "Direct Anthropic API calls from the browser",
+          "description": "Simpler architecture — API key stored locally, calls made directly from the editor. Exposes the API key in browser storage (acceptable for single-user local tool). No server infrastructure needed."
+        },
+        {
+          "value": "proxy",
+          "label": "Lightweight local proxy server",
+          "description": "A small Node.js server (or edge function) that holds the API key and proxies Haiku requests. Better key security, enables rate limiting and caching at the server level. Adds deployment complexity."
+        }
+      ],
+      "default": "direct"
+    },
+    {
+      "id": "q5",
+      "question": "How should the project handle the hand-drawn aesthetic during early sprints?",
+      "options": [
+        {
+          "value": "progressive",
+          "label": "Progressive enhancement — basic styling first, manuscript aesthetic in Sprint 4",
+          "description": "Use minimal CSS in Sprints 1-3, apply the full manuscript aesthetic (rough.js, wired-elements, etc.) in Sprint 4 polish phase. Faster early development, risk of late-stage visual integration issues."
+        },
+        {
+          "value": "upfront",
+          "label": "Establish the aesthetic from Sprint 2",
+          "description": "Set up the manuscript aesthetic (fonts, colors, paper textures, wired-elements) when the editor is first built in Sprint 2. Slower initial development but ensures the visual identity is integrated throughout and avoids a large visual overhaul at the end."
+        }
+      ],
+      "default": "upfront"
+    }
+  ]
+}
