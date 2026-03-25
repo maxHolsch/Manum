@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import type { Editor } from '@tiptap/react';
 import { normalizedEditDistance } from '../attribution/levenshtein';
 import { getColorFromDistance } from '../attribution/transitions';
+import { isIdeaOverlapYellow } from '../attribution/yellow-scorer';
 import type { AttributionColor } from '../editor/marks/attribution';
 
 const DEBOUNCE_MS = 500;
@@ -66,7 +67,15 @@ export function useEditTracker(editor: Editor | null) {
         if (!span) return;
 
         const dist = normalizedEditDistance(span.originalPasteContent, span.text);
-        const newColor = getColorFromDistance(dist);
+        let newColor = getColorFromDistance(dist);
+
+        // YELLOW from idea overlap must NEVER transition to GREEN
+        if (
+          isIdeaOverlapYellow(attrMark.attrs as Record<string, unknown>) &&
+          newColor === 'green'
+        ) {
+          newColor = 'yellow';
+        }
 
         if (newColor !== span.color) {
           tr.addMark(

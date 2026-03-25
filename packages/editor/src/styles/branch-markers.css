@@ -1,0 +1,38 @@
+/**
+ * T137: L-shaped branch markers for paragraphs with alternative versions.
+ * Uses ::before and ::after pseudo-elements for the L-shaped corners.
+ */
+
+.branched-paragraph {
+  position: relative;
+}
+
+/* Left L-shaped marker */
+.branched-paragraph::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  border-left: 2px solid var(--color-accent, #4A5E8A);
+  border-top: 2px solid var(--color-accent, #4A5E8A);
+  border-bottom: 2px solid var(--color-accent, #4A5E8A);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Right L-shaped marker */
+.branched-paragraph::after {
+  content: '';
+  position: absolute;
+  right: -18px;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  border-right: 2px solid var(--color-accent, #4A5E8A);
+  border-top: 2px solid var(--color-accent, #4A5E8A);
+  border-bottom: 2px solid var(--color-accent, #4A5E8A);
+  opacity: 0.6;
+  pointer-events: none;
+}

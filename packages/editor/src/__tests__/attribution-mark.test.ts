@@ -64,6 +64,33 @@ describe('Attribution mark', () => {
     editor.destroy();
   });
 
+  it('preserves new IU-3 attributes (matchedAiEntries, ideaOverlapScore) in round-trip', () => {
+    const editor = createEditor('Yellow text from idea overlap');
+    const matchedAiEntries = [
+      { aiMessageId: 'msg1', overlapScore: 0.6, method: 'edit-distance', aiTimestamp: 1000 },
+    ];
+
+    editor.commands.selectAll();
+    editor.commands.setMark('attribution', {
+      color: 'yellow',
+      matchedAiEntries,
+      ideaOverlapScore: 0.6,
+    });
+
+    const json = editor.getJSON() as JSONContent;
+    const savedAttrs = json.content![0].content![0].marks![0].attrs!;
+
+    expect(savedAttrs['ideaOverlapScore']).toBe(0.6);
+    expect(savedAttrs['matchedAiEntries']).toEqual(matchedAiEntries);
+
+    // Round-trip
+    editor.commands.setContent(json);
+    const json2 = editor.getJSON() as JSONContent;
+    expect(json2.content![0].content![0].marks![0].attrs!['ideaOverlapScore']).toBe(0.6);
+
+    editor.destroy();
+  });
+
   it('supports multiple attribution colors', () => {
     const editor = createEditor();
     editor.commands.selectAll();

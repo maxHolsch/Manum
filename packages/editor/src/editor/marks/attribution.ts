@@ -10,6 +10,13 @@ export interface AttributionAttributes {
   originalPasteContent: string | null;
   editDistance: number | null;
   createdAt: number | null;
+  matchedAiEntries: Array<{
+    aiMessageId: string;
+    overlapScore: number;
+    method: string;
+    aiTimestamp: number;
+  }> | null;
+  ideaOverlapScore: number | null;
 }
 
 export const AttributionMark = Mark.create<Record<string, unknown>>({
@@ -24,6 +31,8 @@ export const AttributionMark = Mark.create<Record<string, unknown>>({
       originalPasteContent: { default: null },
       editDistance: { default: null },
       createdAt: { default: null },
+      matchedAiEntries: { default: null },
+      ideaOverlapScore: { default: null },
     };
   },
 
@@ -44,6 +53,12 @@ export const AttributionMark = Mark.create<Record<string, unknown>>({
               : null,
             createdAt: el.getAttribute('data-attribution-created-at')
               ? parseInt(el.getAttribute('data-attribution-created-at')!, 10)
+              : null,
+            ideaOverlapScore: el.getAttribute('data-attribution-idea-overlap-score')
+              ? parseFloat(el.getAttribute('data-attribution-idea-overlap-score')!)
+              : null,
+            matchedAiEntries: el.getAttribute('data-attribution-matched-ai-entries')
+              ? JSON.parse(el.getAttribute('data-attribution-matched-ai-entries')!)
               : null,
           };
         },
@@ -74,6 +89,10 @@ export const AttributionMark = Mark.create<Record<string, unknown>>({
           'data-attribution-original-paste': HTMLAttributes['originalPasteContent'],
           'data-attribution-edit-distance': HTMLAttributes['editDistance'],
           'data-attribution-created-at': HTMLAttributes['createdAt'],
+          'data-attribution-idea-overlap-score': HTMLAttributes['ideaOverlapScore'],
+          'data-attribution-matched-ai-entries': HTMLAttributes['matchedAiEntries']
+            ? JSON.stringify(HTMLAttributes['matchedAiEntries'])
+            : null,
         },
         styleAttrs,
       ),

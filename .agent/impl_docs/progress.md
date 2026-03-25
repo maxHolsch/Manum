@@ -181,3 +181,59 @@ Each phase follows an implement → review → fix cycle:
 **Coverage:** 65 editor tests + 75 extension tests = 140 total, all passing
 **Quality:** `pnpm -r test` → 140 passed; `pnpm lint` → 0 warnings; all quality gates green
 **Next:** Phase 4 review pass, then Phase 5 — YELLOW Branching
+
+### Session 5 — 2026-03-25
+
+**Goal:** Implement Phase 5 — YELLOW Attribution & Git Branching
+**Completed:** IU-2, IU-3, T120, T121, T122, T123, T124, T125, T126, T127, T128, T129, T130, T131, T132, T133, T134, T135, T136, T137, T138, T139, T140
+**Infrastructure Updates Applied:**
+- IU-2: Exported `updateAttributionMark()` and `AttributionMarkAttrs` interface from `transitions.ts`
+- IU-3: Added `matchedAiEntries` and `ideaOverlapScore` attributes to AttributionMark; added parse/render support for both
+**Blockers:** None
+**Discoveries:**
+- `@nicolo-ribaudo/lightning-fs` not in npm registry; correct package is `@isomorphic-git/lightning-fs`
+- `vi.mock` factory functions are hoisted at compile time — top-level `const` variables defined BEFORE `vi.mock` are not accessible inside the factory; use inline string literals instead
+- `AIPoolEntry` in shared package uses `conversationId` field (not `url`); test fixtures corrected
+- Pre-existing build failure in editor (wired-elements type resolution) from Phase 3 — not caused by Phase 5 changes
+- All git operations mocked in tests since LightningFS/isomorphic-git require real IndexedDB not available in jsdom
+- Merge conflict UI test file needs `.tsx` extension for JSX support in vitest/esbuild
+**Changes:**
+- `packages/editor/src/attribution/transitions.ts` — exported `updateAttributionMark`, `AttributionMarkAttrs` (IU-2)
+- `packages/editor/src/editor/marks/attribution.ts` — added `matchedAiEntries`, `ideaOverlapScore` attrs (IU-3)
+- `packages/editor/src/attribution/timestamp-tracker.ts` — T120: timestamp tracking for new text
+- `packages/editor/src/attribution/temporal-gate.ts` — T121: temporal filtering of AI pool queries
+- `packages/editor/src/attribution/segmenter.ts` — T122: sentence-level text segmentation
+- `packages/editor/src/attribution/stopwords.ts` — T123: English stopword list
+- `packages/editor/src/attribution/ngram.ts` — T123: n-gram extraction and overlap scoring
+- `packages/editor/src/attribution/keywords.ts` — T124: keyword/entity extraction and overlap
+- `packages/editor/src/attribution/yellow-scorer.ts` — T125: combined scoring, YELLOW application
+- `packages/editor/src/attribution/auto-scorer.ts` — T126: auto-scoring on sync
+- `packages/editor/src/hooks/useAutoScoring.ts` — T126: React hook for scoring lifecycle
+- `packages/editor/src/attribution/llm-judge/prompt.ts` — T127: evaluation prompt template
+- `packages/editor/src/attribution/llm-judge/api-client.ts` — T127: Anthropic API client with rate limiting
+- `packages/editor/src/attribution/llm-judge/cache.ts` — T128: result cache with SHA-256 content hashing
+- `packages/editor/src/attribution/llm-judge/batcher.ts` — T128: batch processing
+- `packages/editor/src/attribution/llm-judge/fallback.ts` — T129: session-level LLM fallback
+- `packages/editor/src/components/Notifications.tsx` — T129: notification component + useNotifications hook
+- `packages/editor/src/git/fs.ts` — T130: lightning-fs filesystem setup
+- `packages/editor/src/git/repo.ts` — T130: repository initialization and management
+- `packages/editor/src/git/commit.ts` — T131: auto-commit on save
+- `packages/editor/src/git/metadata.ts` — T132: commit metadata (wordCount, delta, attribution snapshot)
+- `packages/editor/src/git/log.ts` — T133: git log operations
+- `packages/editor/src/git/diff.ts` — T133: git diff operations with LCS-based line diff
+- `packages/editor/src/git/branches.ts` — T134+T135: branch CRUD, checkout, rename
+- `packages/editor/src/git/section-branch.ts` — T136: section-level branch metadata tracking
+- `packages/editor/src/git/section-preview.ts` — T138: fetch section content from other branches
+- `packages/editor/src/git/merge.ts` — T139+T140: three-way merge algorithm + conflict resolution
+- `packages/editor/src/editor/decorations/branch-markers.ts` — T137: TipTap decoration for L-shaped markers
+- `packages/editor/src/styles/branch-markers.css` — T137: CSS for L-shaped branch markers
+- `packages/editor/src/components/BranchDrawer.tsx` — T134+T135: side drawer branch list UI
+- `packages/editor/src/components/BranchAction.tsx` — T136: floating "branch this section" button
+- `packages/editor/src/components/BranchPreview.tsx` — T138: horizontal scroller for branch section previews
+- `packages/editor/src/components/MergeConflict.tsx` — T140: conflict resolution UI
+- `packages/editor/src/hooks/useAutoSave.ts` — modified to trigger git commits on save
+- `packages/editor/src/hooks/useEditTracker.ts` — modified to block YELLOW→GREEN for idea overlap spans
+- 20 new test files covering all Phase 5 modules
+**Coverage:** 185 editor tests + 75 extension tests = 260 total, all passing
+**Quality:** `pnpm -r test` → 260 passed; `pnpm lint` → 0 warnings; `tsc --noEmit` → clean
+**Next:** Phase 5 review pass, then Phase 6 — Visualization & Analytics

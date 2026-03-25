@@ -12,12 +12,14 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@isomorphic-git/lightning-fs": "^4.6.2",
     "@manum/shared": "workspace:*",
     "@tiptap/core": "^3.20.5",
     "@tiptap/pm": "^3.20.5",
     "@tiptap/react": "^3.20.5",
     "@tiptap/starter-kit": "^3.20.5",
     "idb": "^8.0.3",
+    "isomorphic-git": "^1.37.4",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "roughjs": "^4.6.6",
