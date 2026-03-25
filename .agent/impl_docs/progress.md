@@ -152,3 +152,32 @@ Each phase follows an implement → review → fix cycle:
 **Coverage:** 33 editor tests + 75 extension tests = 108 total, all passing
 **Quality:** `pnpm -r test` → 108 passed; `pnpm lint` → 0 warnings; `tsc --noEmit` → clean; `pnpm build` → clean
 **Next:** Phase 3 review pass, then Phase 4 — RED Attribution
+
+### Session 4 — 2026-03-25
+
+**Goal:** Implement Phase 4 — RED Attribution, Edit Tracking, Overlay UI
+**Completed:** IU-1, T090, T091, T092, T093, T094, T095, T096, T097, T098, T099, T100
+**Infrastructure Updates Applied:**
+- IU-1: Added `editorProps.handlePaste` to Editor.tsx via `usePasteHandler` hook using `useRef` pattern to avoid initialization cycle
+**Blockers:** None
+**Discoveries:**
+- `usePasteHandler` must accept `React.RefObject<Editor | null>` rather than `Editor | null` to break the hook ordering cycle (editor not yet created when hooks run at top of component)
+- `useEditTracker` listens to `editor.on('transaction', ...)` with 500ms debounce; groups RED/YELLOW spans by `pasteEventId` before computing edit distance to handle fragmented marks
+- Yellow gradient opacity set via `--attribution-yellow-opacity` CSS custom property computed in `renderHTML` of AttributionMark; CSS uses this var in rgba opacity position
+- All attribution CSS scoped to `.show-attribution` parent class for overlay toggle behavior
+**Changes:**
+- `packages/editor/src/attribution/levenshtein.ts` — character-level Levenshtein + normalizedEditDistance (T094)
+- `packages/editor/src/attribution/paste-attribution.ts` — matchPaste: copy record exact/substring → AI pool fallback ≥80% overlap (T091, T093)
+- `packages/editor/src/attribution/transitions.ts` — getColorFromDistance, computeYellowOpacity (T096, T099)
+- `packages/editor/src/hooks/usePasteHandler.ts` — paste interception, text insert, async RED tagging (T090, T092, T093)
+- `packages/editor/src/hooks/useEditTracker.ts` — transaction listener, debounced rescore, mark transitions (T095, T096)
+- `packages/editor/src/hooks/useAttributionOverlay.ts` — overlay toggle state, computeAttributionStats (T097, T100)
+- `packages/editor/src/components/AttributionOverlay.tsx` — toggle button + summary bar (T097, T100)
+- `packages/editor/src/styles/attribution.css` — RED/YELLOW/GREEN span highlights + yellow gradient (T098, T099)
+- `packages/editor/src/editor/marks/attribution.ts` — renderHTML sets `--attribution-yellow-opacity` CSS var
+- `packages/editor/src/components/Editor.tsx` — integrated all Phase 4 hooks, overlay toggle, show-attribution class
+- `packages/editor/src/styles/index.css` — imports attribution.css
+- 4 new test files: levenshtein (12 tests), paste-attribution (7), transitions (8), attribution-overlay (5)
+**Coverage:** 65 editor tests + 75 extension tests = 140 total, all passing
+**Quality:** `pnpm -r test` → 140 passed; `pnpm lint` → 0 warnings; all quality gates green
+**Next:** Phase 4 review pass, then Phase 5 — YELLOW Branching
