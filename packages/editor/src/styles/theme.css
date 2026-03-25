@@ -1,0 +1,25 @@
+:root {
+  --color-parchment: #FBF3E3;
+  --color-paper: #FFF8EF;
+  --color-border: #E1D9CA;
+  --color-ink: #080200;
+  --color-ink-light: #1E1B12;
+  --color-accent: #4A5E8A;
+  --color-gray: #80756D;
+  --color-gray-light: #D2C4BA;
+  --font-body: 'Special Elite', monospace;
+  --font-meta: 'Courier Prime', monospace;
+  --font-handwriting: 'Caveat', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}

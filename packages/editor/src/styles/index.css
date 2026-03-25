@@ -1,0 +1,44 @@
+@import './fonts.css';
+@import './theme.css';
+@import './texture.css';
+
+.manum-app {
+  min-height: 100vh;
+  background-color: var(--color-parchment);
+  display: flex;
+  flex-direction: column;
+}
+
+.manum-editor-wrapper {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  flex: 1;
+}
+
+.ProseMirror {
+  outline: none;
+  min-height: 400px;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.ProseMirror p {
+  margin: 0.8em 0;
+}
+
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--color-gray);
+  pointer-events: none;
+  height: 0;
+}
