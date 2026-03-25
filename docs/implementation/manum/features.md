@@ -73,7 +73,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** None
 - **Blocks:** F1, F2, F3, F4, F5
 - **User Stories:** US-01
-- **Tasks:** TBD
+- **Tasks:** T010-T017
 - **PRD Reference:** Architecture Overview (tech stack, monorepo structure, testing tools)
 - **Key Deliverables:**
   - Monorepo structure with `packages/extension`, `packages/editor`, `packages/shared`
@@ -92,7 +92,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F0
 - **Blocks:** F2, F10
 - **User Stories:** US-02
-- **Tasks:** TBD
+- **Tasks:** T030-T034
 - **PRD Reference:** Sprint 1, Task 2 (AI response extraction content script)
 - **Key Deliverables:**
   - Content script injected on claude.ai pages
@@ -110,7 +110,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F0, F1
 - **Blocks:** F10
 - **User Stories:** US-03
-- **Tasks:** TBD
+- **Tasks:** T035-T036
 - **PRD Reference:** Sprint 1, Task 3 (Copy event listener)
 - **Key Deliverables:**
   - Copy event listener on claude.ai pages
@@ -125,7 +125,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F0
 - **Blocks:** F21
 - **User Stories:** US-04
-- **Tasks:** TBD
+- **Tasks:** T037-T038
 - **PRD Reference:** Sprint 1, Task 4 (Tab tracking)
 - **Key Deliverables:**
   - chrome.tabs.onActivated listener in service worker
@@ -140,7 +140,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F0
 - **Blocks:** F6
 - **User Stories:** US-05
-- **Tasks:** TBD
+- **Tasks:** T039-T040
 - **PRD Reference:** Sprint 1, Task 5 (Offscreen document for clipboard)
 - **Key Deliverables:**
   - Offscreen document created via chrome.offscreen.createDocument()
@@ -155,7 +155,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F0
 - **Blocks:** F25, F9, F6
 - **User Stories:** US-06
-- **Tasks:** TBD
+- **Tasks:** T060-T064
 - **PRD Reference:** Sprint 2, Task 1 (React + TipTap editor setup)
 - **Key Deliverables:**
   - React + TipTap editor with section-based (paragraph-level) document model
@@ -173,7 +173,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F5
 - **Blocks:** F26
 - **User Stories:** US-07
-- **Tasks:** TBD
+- **Tasks:** T065-T067
 - **PRD Reference:** UI Design Direction, Visual/UI library stack table
 - **Key Deliverables:**
   - Special Elite (body), Courier Prime (metadata), Caveat (handwriting) fonts loaded
@@ -192,7 +192,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F5
 - **Blocks:** F10, F13, F14, F21
 - **User Stories:** US-08
-- **Tasks:** TBD
+- **Tasks:** T068-T070
 - **PRD Reference:** Sprint 2, Task 6 (Persistence layer)
 - **Key Deliverables:**
   - IndexedDB storage for documents and attribution spans
@@ -208,7 +208,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F1, F2, F9
 - **Blocks:** F6, F11, F24
 - **User Stories:** US-09
-- **Tasks:** TBD
+- **Tasks:** T071-T073
 - **PRD Reference:** Sprint 2, Task 7 (Extension <-> Web App communication)
 - **Key Deliverables:**
   - Sync AI knowledge pool from chrome.storage to editor IndexedDB
@@ -225,7 +225,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F5, F10, F4
 - **Blocks:** F7
 - **User Stories:** US-10, US-11
-- **Tasks:** TBD
+- **Tasks:** T090-T093
 - **PRD Reference:** Sprint 2, Tasks 2-3 (Paste event capture, Unlinked paste fallback)
 - **Key Deliverables:**
   - Paste event listener on TipTap editor
@@ -242,7 +242,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F6
 - **Blocks:** F8
 - **User Stories:** US-12
-- **Tasks:** TBD
+- **Tasks:** T094-T096
 - **PRD Reference:** Sprint 2, Task 4 (Edit tracking on RED spans)
 - **Key Deliverables:**
   - Character-level Levenshtein distance computation
@@ -259,7 +259,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F6, F7
 - **Blocks:** None
 - **User Stories:** US-13
-- **Tasks:** TBD
+- **Tasks:** T097-T100
 - **PRD Reference:** Sprint 2, Task 5 (Attribution overlay UI)
 - **Key Deliverables:**
   - Toggle button: "Show Attribution" — OFF by default
@@ -276,7 +276,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F9
 - **Blocks:** F11
 - **User Stories:** US-14
-- **Tasks:** TBD
+- **Tasks:** T120-T121
 - **PRD Reference:** Sprint 3, Task 3 (Temporal gating implementation); Attribution Model — Temporal Gating Rule
 - **Key Deliverables:**
   - created_at timestamp on every user text span
@@ -292,7 +292,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F13, F10
 - **Blocks:** F12
 - **User Stories:** US-15
-- **Tasks:** TBD
+- **Tasks:** T122-T126
 - **PRD Reference:** Sprint 3, Task 1 (N-gram matching engine)
 - **Key Deliverables:**
   - Text segmentation into sentence-level chunks
@@ -309,7 +309,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F11
 - **Blocks:** F24
 - **User Stories:** US-16
-- **Tasks:** TBD
+- **Tasks:** T127-T129
 - **PRD Reference:** Sprint 3, Task 2 (LLM judge mode)
 - **Key Deliverables:**
   - Direct Anthropic API integration (API key stored locally in browser)
@@ -327,7 +327,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F9
 - **Blocks:** F15, F18
 - **User Stories:** US-17
-- **Tasks:** TBD
+- **Tasks:** T130-T133
 - **PRD Reference:** Sprint 3, Task 4 (Git integration with isomorphic-git)
 - **Key Deliverables:**
   - Git repository initialized in IndexedDB via lightning-fs
@@ -343,7 +343,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F14
 - **Blocks:** F16, F17
 - **User Stories:** US-18, US-19
-- **Tasks:** TBD
+- **Tasks:** T134-T137
 - **PRD Reference:** Sprint 3, Tasks 5-6 (Branch creation from tree and selection)
 - **Key Deliverables:**
   - Plus button in side drawer creates branch from current HEAD
@@ -361,7 +361,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F15
 - **Blocks:** None
 - **User Stories:** US-20
-- **Tasks:** TBD
+- **Tasks:** T138
 - **PRD Reference:** Sprint 3, Task 7 (Branch preview scroller)
 - **Key Deliverables:**
   - Horizontal scroller at bottom of branched sections
@@ -377,7 +377,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F15
 - **Blocks:** None
 - **User Stories:** US-21
-- **Tasks:** TBD
+- **Tasks:** T139-T140
 - **PRD Reference:** Sprint 3, Task 8 (Branch merge)
 - **Key Deliverables:**
   - Three-way merge on text content (common ancestor, current, incoming)
@@ -394,7 +394,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F14
 - **Blocks:** F19, F20
 - **User Stories:** US-22
-- **Tasks:** TBD
+- **Tasks:** T160-T162
 - **PRD Reference:** Sprint 4, Task 1 (Commit timeline visualizer)
 - **Key Deliverables:**
   - Vertical timeline in side drawer ("The Paper Drawer")
@@ -411,7 +411,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F18
 - **Blocks:** None
 - **User Stories:** US-23
-- **Tasks:** TBD
+- **Tasks:** T163-T164
 - **PRD Reference:** Sprint 4, Task 2 (LLM-generated commit metadata)
 - **Key Deliverables:**
   - Diff sent to Claude Haiku on each commit
@@ -427,7 +427,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F18
 - **Blocks:** None
 - **User Stories:** US-24
-- **Tasks:** TBD
+- **Tasks:** T165-T166
 - **PRD Reference:** Sprint 4, Task 3 (Diff scrubbing view)
 - **Key Deliverables:**
   - Scrub slider or click timeline entries to view any commit state
@@ -443,7 +443,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F9, F3
 - **Blocks:** F22
 - **User Stories:** US-25
-- **Tasks:** TBD
+- **Tasks:** T167-T168
 - **PRD Reference:** Sprint 4, Task 4 (Behavioral analytics collection); Behavioral Analytics section
 - **Key Deliverables:**
   - Event bus capturing: edit events, paste events, deletions, scroll-away-from-cursor, active time, tab switches, AI usage, branch creation, branch sizes
@@ -458,7 +458,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F21
 - **Blocks:** F23, F26
 - **User Stories:** US-26
-- **Tasks:** TBD
+- **Tasks:** T169-T171
 - **PRD Reference:** Sprint 4, Task 5 (Analytics dashboard)
 - **Key Deliverables:**
   - Attribution summary ratio bar with colored segments
@@ -475,7 +475,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F22, F9
 - **Blocks:** None
 - **User Stories:** US-27
-- **Tasks:** TBD
+- **Tasks:** T172-T173
 - **PRD Reference:** Sprint 4, Task 6 (Cross-project comparison)
 - **Key Deliverables:**
   - Document list with per-document attribution ratios
@@ -490,7 +490,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F12, F10
 - **Blocks:** None
 - **User Stories:** US-28
-- **Tasks:** TBD
+- **Tasks:** T174-T176
 - **PRD Reference:** Sprint 4, Task 7 (Settings panel)
 - **Key Deliverables:**
   - Scoring mode toggle: Edit Distance (default) | LLM Judge
@@ -507,7 +507,7 @@ Phase 4: Visualization, Analytics & Polish
 - **Depends on:** F25, F22
 - **Blocks:** None
 - **User Stories:** US-29, US-30
-- **Tasks:** TBD
+- **Tasks:** T177-T181
 - **PRD Reference:** Sprint 4, Task 8 (Polish and UX); UI Design Direction
 - **Key Deliverables:**
   - Side drawer open/close animations

@@ -16,36 +16,36 @@
 
 | US ID | Title | Feature | Task(s) | Status |
 |-------|-------|---------|---------|--------|
-| US-01 | Project scaffolding and dev environment | F0 | TBD | [ ] |
-| US-02 | AI response capture from Claude.ai | F1 | TBD | [ ] |
-| US-03 | Copy event capture from Claude.ai | F2 | TBD | [ ] |
-| US-04 | Tab focus tracking | F3 | TBD | [ ] |
-| US-05 | Clipboard fallback for unlinked pastes | F4 | TBD | [ ] |
-| US-06 | Rich text editor for writing | F5 | TBD | [ ] |
-| US-07 | Manuscript aesthetic from day one | F25 | TBD | [ ] |
-| US-08 | Document auto-save and persistence | F9 | TBD | [ ] |
-| US-09 | Extension-editor data synchronization | F10 | TBD | [ ] |
-| US-10 | Direct paste detection (RED) | F6 | TBD | [ ] |
-| US-11 | Unlinked paste fallback detection | F6 | TBD | [ ] |
-| US-12 | Edit distance tracking and color transitions | F7 | TBD | [ ] |
-| US-13 | Attribution overlay toggle | F8 | TBD | [ ] |
-| US-14 | Temporal gating of attribution | F13 | TBD | [ ] |
-| US-15 | Idea overlap detection (YELLOW) | F11 | TBD | [ ] |
-| US-16 | LLM judge scoring mode | F12 | TBD | [ ] |
-| US-17 | Git-based version control for documents | F14 | TBD | [ ] |
-| US-18 | Branch creation from document tree | F15 | TBD | [ ] |
-| US-19 | Branch creation from text selection | F15 | TBD | [ ] |
-| US-20 | Branch preview for sections | F16 | TBD | [ ] |
-| US-21 | Branch merging | F17 | TBD | [ ] |
-| US-22 | Commit timeline visualization | F18 | TBD | [ ] |
-| US-23 | LLM-generated commit summaries | F19 | TBD | [ ] |
-| US-24 | Diff scrubbing through history | F20 | TBD | [ ] |
-| US-25 | Behavioral analytics event capture | F21 | TBD | [ ] |
-| US-26 | Analytics dashboard | F22 | TBD | [ ] |
-| US-27 | Cross-project comparison | F23 | TBD | [ ] |
-| US-28 | Settings and configuration | F24 | TBD | [ ] |
-| US-29 | Keyboard shortcuts and navigation | F26 | TBD | [ ] |
-| US-30 | First-time user onboarding | F26 | TBD | [ ] |
+| US-01 | Project scaffolding and dev environment | F0 | T010-T017 | [ ] |
+| US-02 | AI response capture from Claude.ai | F1 | T030-T034, T041 | [ ] |
+| US-03 | Copy event capture from Claude.ai | F2 | T035-T036, T041 | [ ] |
+| US-04 | Tab focus tracking | F3 | T037-T038, T041 | [ ] |
+| US-05 | Clipboard fallback for unlinked pastes | F4 | T039-T040 | [ ] |
+| US-06 | Rich text editor for writing | F5 | T060-T064 | [ ] |
+| US-07 | Manuscript aesthetic from day one | F25 | T065-T067 | [ ] |
+| US-08 | Document auto-save and persistence | F9 | T068-T070 | [ ] |
+| US-09 | Extension-editor data synchronization | F10 | T071-T073 | [ ] |
+| US-10 | Direct paste detection (RED) | F6 | T090-T092 | [ ] |
+| US-11 | Unlinked paste fallback detection | F6 | T093 | [ ] |
+| US-12 | Edit distance tracking and color transitions | F7 | T094-T096 | [ ] |
+| US-13 | Attribution overlay toggle | F8 | T097-T100 | [ ] |
+| US-14 | Temporal gating of attribution | F13 | T120-T121 | [ ] |
+| US-15 | Idea overlap detection (YELLOW) | F11 | T122-T126 | [ ] |
+| US-16 | LLM judge scoring mode | F12 | T127-T129 | [ ] |
+| US-17 | Git-based version control for documents | F14 | T130-T133 | [ ] |
+| US-18 | Branch creation from document tree | F15 | T134-T135 | [ ] |
+| US-19 | Branch creation from text selection | F15 | T136-T137 | [ ] |
+| US-20 | Branch preview for sections | F16 | T138 | [ ] |
+| US-21 | Branch merging | F17 | T139-T140 | [ ] |
+| US-22 | Commit timeline visualization | F18 | T160-T162 | [ ] |
+| US-23 | LLM-generated commit summaries | F19 | T163-T164 | [ ] |
+| US-24 | Diff scrubbing through history | F20 | T165-T166 | [ ] |
+| US-25 | Behavioral analytics event capture | F21 | T167-T168 | [ ] |
+| US-26 | Analytics dashboard | F22 | T169-T171 | [ ] |
+| US-27 | Cross-project comparison | F23 | T172-T173 | [ ] |
+| US-28 | Settings and configuration | F24 | T174-T176 | [ ] |
+| US-29 | Keyboard shortcuts and navigation | F26 | T177-T179, T181 | [ ] |
+| US-30 | First-time user onboarding | F26 | T180 | [ ] |
 
 ---
 
@@ -66,7 +66,7 @@
 - [ ] Pre-commit hook runs lint + unit tests and completes in under 30 seconds
 - [ ] ESLint and Prettier are configured and enforced across all packages
 
-**Feature:** F0 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F0 | **Tasks:** T010-T017 | **Priority:** Must-have
 
 ---
 
@@ -84,7 +84,7 @@
 - [ ] DOM selectors for Claude.ai are isolated in a single module that can be updated without changing capture logic
 - [ ] Captured data persists across page navigations within claude.ai
 
-**Feature:** F1 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F1 | **Tasks:** T030-T034 | **Priority:** Must-have
 
 #### US-03: Copy event capture from Claude.ai
 
@@ -97,7 +97,7 @@
 - [ ] Multiple copy events from the same message create separate records
 - [ ] Copy records are available for paste matching by the editor within 1 second of the copy event
 
-**Feature:** F2 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F2 | **Tasks:** T035-T036 | **Priority:** Must-have
 
 #### US-04: Tab focus tracking
 
@@ -109,7 +109,7 @@
 - [ ] Tab event logs distinguish between editor tab, Claude.ai tab, and other tabs
 - [ ] Tab events persist in chrome.storage.local for later consumption by the analytics system
 
-**Feature:** F3 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F3 | **Tasks:** T037-T038 | **Priority:** Should-have
 
 #### US-05: Clipboard fallback for unlinked pastes
 
@@ -121,7 +121,7 @@
 - [ ] Message passing works: service worker requests clipboard content, offscreen document returns it
 - [ ] The offscreen document is created only when needed and cleaned up after use
 
-**Feature:** F4 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F4 | **Tasks:** T039-T040 | **Priority:** Should-have
 
 ---
 
@@ -139,7 +139,7 @@
 - [ ] Editor accepts paste events and exposes clipboard data for attribution processing
 - [ ] Editor functions correctly as a standalone page even when no extension APIs are available
 
-**Feature:** F5 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F5 | **Tasks:** T060-T064 | **Priority:** Must-have
 
 #### US-07: Manuscript aesthetic from day one
 
@@ -153,7 +153,7 @@
 - [ ] Paper texture is generated via css-doodle + feTurbulence SVG filters (no image assets)
 - [ ] Cards and panels have slight rotations (-0.5deg to 1.5deg) for a handcrafted feel
 
-**Feature:** F25 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F25 | **Tasks:** T065-T067 | **Priority:** Must-have
 
 #### US-08: Document auto-save and persistence
 
@@ -167,7 +167,7 @@
 - [ ] Documents can be opened, created, and deleted from the list view
 - [ ] Data persists across browser restarts
 
-**Feature:** F9 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F9 | **Tasks:** T068-T070 | **Priority:** Must-have
 
 ---
 
@@ -185,7 +185,7 @@
 - [ ] When extension APIs are unavailable, the editor continues to function — all new text is treated as GREEN
 - [ ] Previously synced data remains available in IndexedDB even if the extension is disconnected
 
-**Feature:** F10 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F10 | **Tasks:** T071-T073 | **Priority:** Must-have
 
 #### US-10: Direct paste detection (RED)
 
@@ -198,7 +198,7 @@
 - [ ] The paste timestamp is recorded as the span's created_at
 - [ ] Non-AI pastes (no matching copy record or AI pool entry) are tagged GREEN
 
-**Feature:** F6 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F6 | **Tasks:** T090-T093 | **Priority:** Must-have
 
 #### US-11: Unlinked paste fallback detection
 
@@ -211,7 +211,7 @@
 - [ ] The offscreen clipboard fallback is used when paste event clipboard data is insufficient
 - [ ] The threshold (80%) is applied consistently across all unlinked paste checks
 
-**Feature:** F6 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F6 | **Tasks:** T093 | **Priority:** Should-have
 
 #### US-12: Edit distance tracking and color transitions
 
@@ -225,7 +225,7 @@
 - [ ] Only the edited span is re-scored, not the entire document
 - [ ] The original paste content is preserved in metadata even after transition to GREEN
 
-**Feature:** F7 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F7 | **Tasks:** T094-T096 | **Priority:** Must-have
 
 #### US-13: Attribution overlay toggle
 
@@ -240,7 +240,7 @@
 - [ ] Toggling the overlay does not modify the underlying document content
 - [ ] The toggle state does not persist across sessions (always starts OFF)
 
-**Feature:** F8 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F8 | **Tasks:** T097-T100 | **Priority:** Must-have
 
 #### US-14: Temporal gating of attribution
 
@@ -253,7 +253,7 @@
 - [ ] Once text is marked YELLOW (AI said it first), it MUST NOT transition to GREEN via temporal re-evaluation
 - [ ] Temporal gating applies to both edit-distance and LLM judge scoring modes
 
-**Feature:** F13 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F13 | **Tasks:** T120-T121 | **Priority:** Must-have
 
 #### US-15: Idea overlap detection (YELLOW)
 
@@ -267,7 +267,7 @@
 - [ ] Common phrases are filtered out via stopword-aware n-gram exclusion to reduce false positives
 - [ ] Scoring runs automatically when new AI pool entries are synced
 
-**Feature:** F11 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F11 | **Tasks:** T122-T126 | **Priority:** Must-have
 
 #### US-16: LLM judge scoring mode
 
@@ -282,7 +282,7 @@
 - [ ] API key is stored locally in browser storage (acceptable for single-user local tool)
 - [ ] API calls are rate-limited to control costs
 
-**Feature:** F12 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F12 | **Tasks:** T127-T129 | **Priority:** Should-have
 
 ---
 
@@ -299,7 +299,7 @@
 - [ ] Git log returns a chronological list of all commits for a document
 - [ ] Git diff between any two commits produces correct additions and deletions
 
-**Feature:** F14 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F14 | **Tasks:** T130-T133 | **Priority:** Must-have
 
 #### US-18: Branch creation from document tree
 
@@ -312,7 +312,7 @@
 - [ ] Switching branches updates the editor to show that branch's document state
 - [ ] The original branch's content is unaffected when editing on a new branch
 
-**Feature:** F15 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F15 | **Tasks:** T134-T135 | **Priority:** Must-have
 
 #### US-19: Branch creation from text selection
 
@@ -325,7 +325,7 @@
 - [ ] Branching is limited to paragraph-level TipTap nodes (no arbitrary text range selection)
 - [ ] The user can edit the branched section independently on the new branch
 
-**Feature:** F15 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F15 | **Tasks:** T136-T137 | **Priority:** Must-have
 
 #### US-20: Branch preview for sections
 
@@ -338,7 +338,7 @@
 - [ ] The active branch tab is highlighted with accent color (#4A5E8A)
 - [ ] Previewing does not change the current branch or document state
 
-**Feature:** F16 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F16 | **Tasks:** T138 | **Priority:** Should-have
 
 #### US-21: Branch merging
 
@@ -352,7 +352,7 @@
 - [ ] After resolving all conflicts, a merge commit is created
 - [ ] The merged branch can be deleted after successful merge
 
-**Feature:** F17 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F17 | **Tasks:** T139-T140 | **Priority:** Must-have
 
 ---
 
@@ -370,7 +370,7 @@
 - [ ] Clicking a timeline entry navigates the editor to that commit's document state
 - [ ] The timeline updates in real-time as new commits are created
 
-**Feature:** F18 | **Tasks:** TBD | **Priority:** Must-have
+**Feature:** F18 | **Tasks:** T160-T162 | **Priority:** Must-have
 
 #### US-23: LLM-generated commit summaries
 
@@ -383,7 +383,7 @@
 - [ ] If the Haiku API is unavailable, a fallback title is auto-generated from word count delta + timestamp
 - [ ] Previously generated metadata is not re-fetched on subsequent views
 
-**Feature:** F19 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F19 | **Tasks:** T163-T164 | **Priority:** Should-have
 
 #### US-24: Diff scrubbing through history
 
@@ -396,7 +396,7 @@
 - [ ] Diff highlighting uses the editor's own styling and manuscript aesthetic
 - [ ] Navigation between commits is smooth without full page reloads
 
-**Feature:** F20 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F20 | **Tasks:** T165-T166 | **Priority:** Should-have
 
 ---
 
@@ -413,7 +413,7 @@
 - [ ] Event capture does not noticeably impact editor performance (no visible lag or frame drops)
 - [ ] Events include timestamps for timeline reconstruction
 
-**Feature:** F21 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F21 | **Tasks:** T167-T168 | **Priority:** Should-have
 
 #### US-26: Analytics dashboard
 
@@ -427,7 +427,7 @@
 - [ ] Charts use hand-drawn style via chart.xkcd + react-rough-fiber
 - [ ] Dashboard is accessible from the bottom nav bar (Insights mode)
 
-**Feature:** F22 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F22 | **Tasks:** T169-T171 | **Priority:** Should-have
 
 #### US-27: Cross-project comparison
 
@@ -439,7 +439,7 @@
 - [ ] The visualization supports answering "Am I becoming more or less dependent on AI?"
 - [ ] Charts use the hand-drawn chart.xkcd aesthetic consistent with the rest of the UI
 
-**Feature:** F23 | **Tasks:** TBD | **Priority:** Could-have
+**Feature:** F23 | **Tasks:** T172-T173 | **Priority:** Could-have
 
 ---
 
@@ -457,7 +457,7 @@
 - [ ] Data export produces a JSON file containing documents, attribution data, and analytics
 - [ ] Settings persist across sessions in IndexedDB
 
-**Feature:** F24 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F24 | **Tasks:** T174-T176 | **Priority:** Should-have
 
 ---
 
@@ -474,7 +474,7 @@
 - [ ] Side drawer opens and closes with smooth animation
 - [ ] All navigation transitions maintain document scroll position and cursor state
 
-**Feature:** F26 | **Tasks:** TBD | **Priority:** Should-have
+**Feature:** F26 | **Tasks:** T177-T179, T181 | **Priority:** Should-have
 
 #### US-30: First-time user onboarding
 
@@ -487,4 +487,4 @@
 - [ ] After onboarding, the user lands in the editor with a new empty document
 - [ ] The onboarding flow covers extension installation/connection status
 
-**Feature:** F26 | **Tasks:** TBD | **Priority:** Could-have
+**Feature:** F26 | **Tasks:** T180 | **Priority:** Could-have
