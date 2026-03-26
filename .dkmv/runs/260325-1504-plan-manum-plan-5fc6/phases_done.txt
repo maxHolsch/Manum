@@ -1,0 +1,5 @@
+Output directory: docs/implementation/manum
+Phases: 6
+Total tasks: 92
+Phase documents: phase1_foundation.md, phase2_capture.md, phase3_editor_core.md, phase4_red_attribution.md, phase5_yellow_branching.md, phase6_visualization_polish.md
+Task ID range: T010-T181

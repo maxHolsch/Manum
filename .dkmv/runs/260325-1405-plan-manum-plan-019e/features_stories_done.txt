@@ -1,0 +1,4 @@
+Output directory: docs/implementation/manum
+Features: 27 features written to docs/implementation/manum/features.md
+Stories: 30 stories written to docs/implementation/manum/user_stories.md
+Categories: Setup & Infrastructure, AI Capture, Writing & Editing, Attribution & Transparency, Branching & Versioning, History & Visualization, Analytics & Insights, Data Management, Navigation & Onboarding

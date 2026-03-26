@@ -1,24 +1,24 @@
 {
   "manifest_version": 3,
   "name": "Manum",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Track and attribute AI-assisted writing",
   "permissions": ["storage", "unlimitedStorage", "tabs", "clipboardRead", "offscreen"],
   "host_permissions": ["*://claude.ai/*"],
   "background": {
-    "service_worker": "dist/background/service-worker.js",
+    "service_worker": "background/service-worker.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["https://claude.ai/*"],
-      "js": ["dist/content/index.js"],
+      "js": ["content/index.js"],
       "run_at": "document_idle"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["dist/offscreen/offscreen.html", "editor/index.html", "editor/*"],
+      "resources": ["offscreen/offscreen.html", "editor/index.html", "editor/*"],
       "matches": ["<all_urls>"]
     }
   ],

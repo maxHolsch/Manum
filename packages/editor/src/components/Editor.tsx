@@ -4,6 +4,7 @@ import type { Editor } from '@tiptap/react';
 import { coreExtensions } from '../editor/schema';
 import { AttributionMark } from '../editor/marks/attribution';
 import { BranchMarkerNode } from '../editor/nodes/branch-marker';
+import { MarkTransition } from '../editor/extensions/mark-transition';
 import { Toolbar } from './Toolbar';
 import { ConnectionStatus } from './ConnectionStatus';
 import { AttributionOverlay } from './AttributionOverlay';
@@ -16,6 +17,7 @@ import { useExtensionSync } from '../hooks/useExtensionSync';
 import { usePasteHandler } from '../hooks/usePasteHandler';
 import { useEditTracker } from '../hooks/useEditTracker';
 import { useAttributionOverlay } from '../hooks/useAttributionOverlay';
+import { useAutoScoring } from '../hooks/useAutoScoring';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { getCommitLog, type CommitLogEntry } from '../git/log';
 import { readDocumentAtCommit } from '../git/history';
@@ -39,7 +41,6 @@ export function ManumEditor({ document, onBack, mode, onModeChange }: ManumEdito
   const [saveStatus, setSaveStatus] = useState<string>('');
   const { connectionState } = useExtensionSync();
   const { scheduleAutoSave, saveStatus: autoSaveStatus, saveNow } = useAutoSave(document.id);
-  const { showOverlay, toggleOverlay } = useAttributionOverlay();
 
   // Drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -60,7 +61,7 @@ export function ManumEditor({ document, onBack, mode, onModeChange }: ManumEdito
   const { handlePaste } = usePasteHandler(editorInstanceRef);
 
   const editor = useEditor({
-    extensions: [...coreExtensions, AttributionMark, BranchMarkerNode],
+    extensions: [...coreExtensions, AttributionMark, BranchMarkerNode, MarkTransition],
     content: document.content,
     editable: historicalContent === null,
     editorProps: {
@@ -78,6 +79,8 @@ export function ManumEditor({ document, onBack, mode, onModeChange }: ManumEdito
   }, [editor]);
 
   useEditTracker(editor);
+  useAutoScoring(editor);
+  const { showOverlay, toggleOverlay } = useAttributionOverlay(editor);
 
   useEffect(() => {
     if (autoSaveStatus === 'saved') {

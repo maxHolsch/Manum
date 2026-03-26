@@ -2,7 +2,7 @@
 // assistant messages. Handles SPA navigation by re-attaching when the container
 // is replaced.
 
-import { getConversationContainer, isAssistantMessage } from './selectors.js';
+import { getConversationContainer, getAssistantMessages, isAssistantMessage } from './selectors.js';
 
 export type AssistantMessageCallback = (element: Element) => void;
 
@@ -58,16 +58,27 @@ function attachContentObserver(onNewMessage: AssistantMessageCallback): void {
   state.container = container;
   state.contentObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
+      // Capture when streaming completes: data-is-streaming changes to "false"
+      if (
+        mutation.type === 'attributes' &&
+        mutation.attributeName === 'data-is-streaming' &&
+        mutation.target instanceof Element &&
+        mutation.target.getAttribute('data-is-streaming') === 'false'
+      ) {
+        onNewMessage(mutation.target);
+        continue;
+      }
+
       if (mutation.type !== 'childList') continue;
       for (const node of Array.from(mutation.addedNodes)) {
         if (!(node instanceof Element)) continue;
-        // Check if the added node itself is an assistant message
-        if (isAssistantMessage(node)) {
+        // Check if the added node itself is a completed assistant message
+        if (isAssistantMessage(node) && node.getAttribute('data-is-streaming') === 'false') {
           onNewMessage(node);
           continue;
         }
-        // Check descendants (Claude may wrap the turn in a container div)
-        const nested = node.querySelectorAll('[data-message-author-role="assistant"]');
+        // Check descendants
+        const nested = node.querySelectorAll('[data-is-streaming="false"]');
         for (const el of Array.from(nested)) {
           onNewMessage(el);
         }
@@ -75,8 +86,24 @@ function attachContentObserver(onNewMessage: AssistantMessageCallback): void {
     }
   });
 
-  state.contentObserver.observe(container, { childList: true, subtree: true });
+  state.contentObserver.observe(container, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['data-is-streaming'],
+  });
   console.debug('[Manum] Content observer attached to', container);
+
+  // Capture messages already present on page load (e.g. navigating to existing conversation)
+  const existing = getAssistantMessages();
+  for (const el of Array.from(existing)) {
+    if (el.getAttribute('data-is-streaming') === 'false') {
+      onNewMessage(el);
+    }
+  }
+  if (existing.length > 0) {
+    console.debug('[Manum] Scanned', existing.length, 'existing assistant messages');
+  }
 }
 
 function attachRootObserver(onNewMessage: AssistantMessageCallback): void {

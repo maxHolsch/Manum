@@ -1,0 +1,13 @@
+{
+  "phase_count": 6,
+  "task_count": 92,
+  "task_id_range": "T010-T181",
+  "phase_filenames": [
+    "phase1_foundation.md",
+    "phase2_capture.md",
+    "phase3_editor_core.md",
+    "phase4_red_attribution.md",
+    "phase5_yellow_branching.md",
+    "phase6_visualization_polish.md"
+  ]
+}

@@ -2,8 +2,8 @@ import type { AIPoolEntry, CopyRecord } from '@manum/shared';
 import { getDB } from '../storage/db';
 
 const STORAGE_KEYS = {
-  AI_POOL: 'aiPool',
-  COPY_RECORDS: 'copyRecords',
+  AI_POOL: 'manum_ai_pool',
+  COPY_RECORDS: 'manum_copy_records',
 } as const;
 
 export function isExtensionAvailable(): boolean {

@@ -1,0 +1,15 @@
+{
+  "run_id": "260325-1504-plan-manum-plan-5fc6",
+  "component": "plan",
+  "status": "completed",
+  "repo": "https://github.com/maxHolsch/Manum.git",
+  "branch": "main",
+  "feature_name": "MANUM_PLAN",
+  "model": "",
+  "total_cost_usd": 10.262962200000004,
+  "duration_seconds": 1856.0905387500097,
+  "num_turns": 143,
+  "timestamp": "2026-03-25T19:35:00.684584Z",
+  "session_id": "",
+  "error_message": ""
+}

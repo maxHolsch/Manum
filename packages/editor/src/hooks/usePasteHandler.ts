@@ -22,7 +22,10 @@ export function usePasteHandler(editorRef: RefObject<Editor | null>) {
       view.dispatch(tr);
 
       const insertedFrom = from;
-      const insertedTo = from + text.length;
+      // Use the transaction mapping to get the true end position in the new doc.
+      // tr.mapping.map(to) gives the new position of the old selection end,
+      // plus the net chars added (text.length - (to - from)).
+      const insertedTo = tr.mapping.map(to) + (text.length - (to - from));
       const pasteEventId = generatePasteId();
 
       // Async: match against copy records / AI pool, then apply RED mark

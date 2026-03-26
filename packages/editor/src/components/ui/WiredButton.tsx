@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import 'wired-elements';
-import '../../types/wired-elements';
 
 interface WiredButtonProps {
   onClick?: () => void;

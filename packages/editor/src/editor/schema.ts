@@ -1,5 +1,6 @@
 import StarterKit from '@tiptap/starter-kit';
 import type { Extensions } from '@tiptap/react';
+import { GreenTypingMark } from './extensions/green-typing';
 
 /**
  * Core document schema extensions.
@@ -7,6 +8,7 @@ import type { Extensions } from '@tiptap/react';
  * Exported for reuse when adding attribution marks and branch nodes.
  */
 export const coreExtensions: Extensions = [
+  GreenTypingMark,
   StarterKit.configure({
     bold: {},
     italic: {},

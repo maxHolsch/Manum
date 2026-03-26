@@ -1,0 +1,15 @@
+{
+  "run_id": "260325-1546-dev-manum-a9b1",
+  "component": "dev",
+  "status": "completed",
+  "repo": "https://github.com/maxHolsch/Manum.git",
+  "branch": "main",
+  "feature_name": "manum",
+  "model": "",
+  "total_cost_usd": 18.219884049999997,
+  "duration_seconds": 5649.890503041999,
+  "num_turns": 309,
+  "timestamp": "2026-03-25T23:48:39.774065Z",
+  "session_id": "",
+  "error_message": ""
+}

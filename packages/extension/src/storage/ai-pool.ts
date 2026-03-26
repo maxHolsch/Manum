@@ -11,9 +11,17 @@ export const AI_POOL_KEY = 'manum_ai_pool';
 export async function addAIPoolEntry(entry: AIPoolEntry): Promise<void> {
   const entries = await getAIPool();
 
-  // Idempotent: skip if messageId already present
-  if (entries.some((e) => e.messageId === entry.messageId)) {
-    console.debug('[Manum] AI pool: duplicate messageId skipped', entry.messageId);
+  // Idempotent: skip if same messageId + conversationId already present
+  if (
+    entries.some(
+      (e) => e.messageId === entry.messageId && e.conversationId === entry.conversationId,
+    )
+  ) {
+    console.debug(
+      '[Manum] AI pool: duplicate entry skipped',
+      entry.messageId,
+      entry.conversationId,
+    );
     return;
   }
 

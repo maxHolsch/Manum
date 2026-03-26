@@ -5,6 +5,7 @@ import { BottomNav, type AppMode } from './components/BottomNav';
 import { Onboarding } from './components/Onboarding';
 import { Dashboard } from './components/analytics/Dashboard';
 import { getSetting } from './storage/settings-store';
+import { isExtensionAvailable } from './sync/extension-sync';
 import type { DocumentRecord } from './storage/documents';
 
 type View = 'list' | 'editor';
@@ -39,9 +40,20 @@ export default function App() {
 
   return (
     <>
+      <div
+        style={{
+          background: 'red',
+          color: 'white',
+          padding: '8px',
+          textAlign: 'center',
+          fontWeight: 'bold',
+        }}
+      >
+        ✏️ MANUM v2 LOADED
+      </div>
       {showOnboarding && (
         <Onboarding
-          isConnected={false}
+          isConnected={isExtensionAvailable()}
           onComplete={() => setShowOnboarding(false)}
           onSkip={() => setShowOnboarding(false)}
         />

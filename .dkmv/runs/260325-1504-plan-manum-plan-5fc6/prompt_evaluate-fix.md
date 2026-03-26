@@ -1,0 +1,161 @@
+You are a senior QA engineer verifying a complete set of implementation documents.
+
+## Setup
+
+1. The output directory is `docs/implementation/manum` — all documents are here
+2. Read the PRD at `.agent/prd.md`
+3. Read `.agent/analysis.json` for the full PRD analysis
+4. Read ALL documents in `docs/implementation/manum/`:
+   - features.md
+   - user_stories.md
+   - All phaseN\_\*.md files
+   - tasks.md
+   - progress.md
+   - README.md
+   - GUIDE.md
+
+## Step 13: Verification & Validation
+
+### Verification Checklist
+
+Check every item. Track which pass and which fail.
+
+**COMPLETENESS**
+
+- [ ] Every PRD feature maps to at least one feature in features.md
+- [ ] Every feature in features.md has at least one user story
+- [ ] Every user story has 3-7 acceptance criteria
+- [ ] Every feature maps to specific tasks in tasks.md
+- [ ] Every task in tasks.md has a corresponding entry in a phaseN\_\*.md
+- [ ] Every phaseN\_\*.md has Phase Evaluation Criteria
+- [ ] Every task has an Evaluation Checklist
+- [ ] PRD non-goals are not accidentally covered by any task
+
+**CONSISTENCY**
+
+- [ ] Feature dependency graph has no cycles
+- [ ] Task dependency graph has no cycles
+- [ ] Task numbering is sequential with no gaps within phases
+- [ ] Feature IDs in features.md match references in user_stories.md and tasks.md
+- [ ] User story IDs in user_stories.md match references in features.md and phase docs
+- [ ] Task IDs in tasks.md match IDs in phase docs
+- [ ] Phase count in README matches actual phase documents
+- [ ] Total task count in tasks.md progress summary matches actual task count
+
+**TRACEABILITY**
+
+- [ ] Forward: every PRD requirement → feature → user story → task → phase doc
+- [ ] Backward: every task → user story → feature → PRD section
+- [ ] No orphan tasks (tasks not linked to any feature or user story)
+- [ ] No orphan stories (stories not linked to any feature)
+- [ ] No unimplemented features (features with no tasks)
+
+**QUALITY**
+
+- [ ] Phase evaluation criteria are executable commands, not vague descriptions
+- [ ] Task acceptance criteria are specific and testable
+- [ ] Implementation notes provide enough detail for autonomous execution
+- [ ] "Files to Create/Modify" is specified for every task
+- [ ] Dependencies are realistic (no forward references)
+- [ ] Estimated scope is provided for every task
+- [ ] No task exceeds 3 hours estimated scope
+
+**ANTI-PATTERN CHECKS**
+
+- [ ] No PRD text copied verbatim into phase docs (should reference PRD sections instead)
+- [ ] No vague evaluation criteria ("works correctly", "functions properly")
+- [ ] No tasks without acceptance criteria
+- [ ] No monolithic phases (>20 tasks in a single phase)
+- [ ] No tasks with missing dependencies
+- [ ] No tasks without "Files to Create/Modify"
+- [ ] Testing is integrated alongside implementation (not deferred to end)
+- [ ] No orphan tasks (every task links to a feature and user story)
+- [ ] Every phase doc has evaluation criteria section
+
+### 3-Pass Cross-Validation
+
+**Pass 1 — Forward Traceability (PRD → Implementation):**
+Read the PRD section by section. For each requirement, find the corresponding feature, story, and tasks. Flag any PRD requirement that doesn't map to implementation work.
+
+**Pass 2 — Backward Traceability (Implementation → PRD):**
+Read tasks.md task by task. For each task, trace back to the user story, feature, and PRD section. Flag any task that doesn't trace back to the PRD (potential scope creep).
+
+**Pass 3 — Internal Consistency:**
+Verify all cross-references are correct: feature IDs, user story IDs, task IDs, phase document links, dependency chains. Check for:
+
+- ID mismatches between documents
+- Broken cross-references
+- Dependency cycles
+- Missing links
+
+## Fix Loop
+
+For each issue found:
+
+1. **Fix it** directly in the affected document(s)
+2. **Re-verify** the specific check that failed
+3. **Track** the fix for the report
+
+Repeat until all checks pass. If you cannot fix an issue (e.g., it requires PRD clarification), document it as an open issue in the report.
+
+## Output
+
+Write `.agent/plan_report.json` with this structure:
+
+```json
+{
+  "status": "pass",
+  "completeness": {
+    "score": "18/18",
+    "issues": []
+  },
+  "consistency": {
+    "score": "8/8",
+    "issues": []
+  },
+  "traceability": {
+    "score": "5/5",
+    "issues": []
+  },
+  "quality": {
+    "score": "7/7",
+    "issues": []
+  },
+  "issues_found": 3,
+  "issues_fixed": 3,
+  "issues_remaining": 0,
+  "iterations": 2,
+  "documents_produced": [
+    "features.md",
+    "user_stories.md",
+    "phase1_foundation.md",
+    "phase2_core.md",
+    "tasks.md",
+    "progress.md",
+    "README.md",
+    "GUIDE.md"
+  ],
+  "summary": "All 38 verification checks pass. 3 issues found and fixed in 2 iterations."
+}
+```
+
+Use `"status": "pass"` when all issues are fixed. Use `"status": "fail"` only if issues remain that couldn't be fixed.
+
+For any issues (fixed or remaining), include detail:
+
+```json
+{
+  "check": "Task IDs match in tasks.md and phase docs",
+  "category": "consistency",
+  "description": "T045 in tasks.md but T046 in phase2_core.md",
+  "fixed": true,
+  "fix_description": "Updated phase2_core.md to use T045"
+}
+```
+
+## Constraints
+
+- You MUST fix issues, not just report them
+- The report must be valid JSON
+- Track every issue found and every fix applied
+- If all checks pass on first verification, still write the report with status "pass" and issues_found: 0

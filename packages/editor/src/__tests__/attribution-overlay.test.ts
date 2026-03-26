@@ -56,4 +56,29 @@ describe('computeAttributionStats', () => {
     expect(stats.redPct + stats.yellowPct + stats.greenPct).toBeLessThanOrEqual(100);
     editor.destroy();
   });
+
+  it('treats unmarked (typed) text as green', () => {
+    // Plain typed text has no attribution mark — should count as green
+    const editor = createEditor('<p>Hello world</p>');
+    const stats = computeAttributionStats(editor);
+    expect(stats.totalChars).toBe(11); // "Hello world"
+    expect(stats.greenChars).toBe(11);
+    expect(stats.greenPct).toBe(100);
+    expect(stats.redChars).toBe(0);
+    expect(stats.yellowChars).toBe(0);
+    editor.destroy();
+  });
+
+  it('mixed: typed text is green, pasted text retains its mark', () => {
+    const editor = createEditor('<p>Hello world</p>');
+    // Mark first 5 chars as red (simulating a paste)
+    editor.commands.setTextSelection({ from: 1, to: 6 });
+    editor.commands.setMark('attribution', { color: 'red' });
+
+    const stats = computeAttributionStats(editor);
+    expect(stats.redChars).toBe(5);
+    expect(stats.greenChars).toBe(6); // " world" = unmarked = green
+    expect(stats.totalChars).toBe(11);
+    editor.destroy();
+  });
 });

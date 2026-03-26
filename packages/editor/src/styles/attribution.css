@@ -1,4 +1,6 @@
 /* Attribution overlay — only active when show-attribution class is present */
+
+
 .show-attribution [data-attribution-color="red"] {
   background-color: rgba(192, 57, 43, 0.25);
   border-bottom: 2px solid rgba(192, 57, 43, 0.5);
