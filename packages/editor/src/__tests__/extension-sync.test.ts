@@ -3,9 +3,9 @@ import 'fake-indexeddb/auto';
 import { resetDB, getDB } from '../storage/db';
 
 // Mock chrome.storage before importing extension-sync
-const mockStorage: { aiPool: unknown[]; copyRecords: unknown[] } = {
-  aiPool: [],
-  copyRecords: [],
+const mockStorage: { manum_ai_pool: unknown[]; manum_copy_records: unknown[] } = {
+  manum_ai_pool: [],
+  manum_copy_records: [],
 };
 
 const mockChrome = {
@@ -34,8 +34,8 @@ let testDbSeq = 0;
 beforeEach(() => {
   testDbSeq++;
   resetDB(`manum_test_sync_${testDbSeq}`);
-  mockStorage.aiPool = [];
-  mockStorage.copyRecords = [];
+  mockStorage.manum_ai_pool = [];
+  mockStorage.manum_copy_records = [];
   // Set global chrome
   (globalThis as Record<string, unknown>).chrome = mockChrome;
 });
@@ -60,7 +60,7 @@ describe('extension-sync', () => {
   });
 
   it('syncs AI pool entries from chrome.storage to IndexedDB', async () => {
-    mockStorage.aiPool = [
+    mockStorage.manum_ai_pool = [
       { messageId: 'msg_1', text: 'Hello AI', timestamp: 1000, conversationId: 'conv_1' },
       { messageId: 'msg_2', text: 'Response', timestamp: 2000, conversationId: 'conv_1' },
     ];
@@ -75,7 +75,7 @@ describe('extension-sync', () => {
   });
 
   it('syncs copy records from chrome.storage to IndexedDB', async () => {
-    mockStorage.copyRecords = [
+    mockStorage.manum_copy_records = [
       { id: 'copy_1', selectedText: 'test', sourceMessageId: 'msg_1', timestamp: 1000 },
     ];
 
@@ -89,7 +89,7 @@ describe('extension-sync', () => {
   });
 
   it('is idempotent (no duplicates on repeated sync)', async () => {
-    mockStorage.aiPool = [
+    mockStorage.manum_ai_pool = [
       { messageId: 'msg_1', text: 'Hello', timestamp: 1000, conversationId: 'c1' },
     ];
 

@@ -32,15 +32,11 @@ describe('copy-listener', () => {
   beforeEach(() => {
     stopCopyListener();
     setupDOM(`
-      <div data-testid="conversation-turn-1">
-        <div data-message-author-role="assistant" data-message-id="msg-abc">
-          <div class="prose">Assistant response text here.</div>
-        </div>
+      <div data-is-streaming="false" data-message-id="msg-abc">
+        <div class="prose">Assistant response text here.</div>
       </div>
-      <div data-testid="conversation-turn-2">
-        <div data-message-author-role="human">
-          <div class="prose">User message</div>
-        </div>
+      <div data-testid="user-message">
+        <div class="prose">User message</div>
       </div>
     `);
     jest.restoreAllMocks();
@@ -55,7 +51,7 @@ describe('copy-listener', () => {
     const handler = jest.fn();
     startCopyListener(handler);
 
-    const proseEl = document.querySelector('[data-message-author-role="assistant"] .prose')!;
+    const proseEl = document.querySelector('[data-is-streaming] .prose')!;
     fireCopyEvent('Assistant response text', proseEl);
 
     expect(handler).toHaveBeenCalledTimes(1);
@@ -69,7 +65,7 @@ describe('copy-listener', () => {
     const handler = jest.fn();
     startCopyListener(handler);
 
-    const humanEl = document.querySelector('[data-message-author-role="human"] .prose')!;
+    const humanEl = document.querySelector('[data-testid="user-message"] .prose')!;
     fireCopyEvent('User message', humanEl);
 
     expect(handler).not.toHaveBeenCalled();
@@ -79,7 +75,7 @@ describe('copy-listener', () => {
     const handler = jest.fn();
     startCopyListener(handler);
 
-    const proseEl = document.querySelector('[data-message-author-role="assistant"] .prose')!;
+    const proseEl = document.querySelector('[data-is-streaming] .prose')!;
     fireCopyEvent('', proseEl);
 
     expect(handler).not.toHaveBeenCalled();
@@ -90,7 +86,7 @@ describe('copy-listener', () => {
     startCopyListener(handler);
     stopCopyListener();
 
-    const proseEl = document.querySelector('[data-message-author-role="assistant"] .prose')!;
+    const proseEl = document.querySelector('[data-is-streaming] .prose')!;
     fireCopyEvent('Some text', proseEl);
 
     expect(handler).not.toHaveBeenCalled();
@@ -100,7 +96,7 @@ describe('copy-listener', () => {
     const handler = jest.fn();
     startCopyListener(handler);
 
-    const proseEl = document.querySelector('[data-message-author-role="assistant"] .prose')!;
+    const proseEl = document.querySelector('[data-is-streaming] .prose')!;
     fireCopyEvent('text', proseEl);
 
     const record = handler.mock.calls[0][0];

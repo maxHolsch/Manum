@@ -15,25 +15,24 @@ describe('observer', () => {
     stopObserver();
   });
 
-  it('calls callback when an assistant message is added to the container', async () => {
-    // Set up conversation container
+  it('calls callback when an assistant message finishes streaming', async () => {
+    // Set up conversation container with an existing AI message
     document.body.innerHTML = `
-      <div data-testid="conversation-turn-0">
-        <div data-message-author-role="human">Hello</div>
-      </div>
+      <div data-is-streaming="false">Previous response</div>
     `;
 
     const callback = jest.fn();
     startObserver(callback);
 
-    // Simulate Claude.ai adding an assistant message turn
-    const turn = document.createElement('div');
-    turn.setAttribute('data-testid', 'conversation-turn-1');
+    // callback is called once for the existing completed message
+    expect(callback).toHaveBeenCalledTimes(1);
+    callback.mockClear();
+
+    // Simulate Claude.ai adding a new streaming message that completes
     const msg = document.createElement('div');
-    msg.setAttribute('data-message-author-role', 'assistant');
+    msg.setAttribute('data-is-streaming', 'false');
     msg.textContent = 'Hello, I am Claude.';
-    turn.appendChild(msg);
-    document.body.appendChild(turn);
+    document.body.appendChild(msg);
 
     // Allow microtask queue to flush
     await new Promise((r) => setTimeout(r, 0));
@@ -42,17 +41,16 @@ describe('observer', () => {
   });
 
   it('does not call callback for human messages', async () => {
-    document.body.innerHTML = `<div data-testid="conversation-turn-0"></div>`;
+    document.body.innerHTML = `<div data-is-streaming="false">AI msg</div>`;
 
     const callback = jest.fn();
     startObserver(callback);
+    callback.mockClear();
 
-    const turn = document.createElement('div');
     const msg = document.createElement('div');
-    msg.setAttribute('data-message-author-role', 'human');
+    msg.setAttribute('data-testid', 'user-message');
     msg.textContent = 'User input';
-    turn.appendChild(msg);
-    document.body.appendChild(turn);
+    document.body.appendChild(msg);
 
     await new Promise((r) => setTimeout(r, 0));
 
@@ -60,24 +58,24 @@ describe('observer', () => {
   });
 
   it('re-attaches observer when conversation container is replaced (SPA navigation)', async () => {
-    document.body.innerHTML = `<div data-testid="conversation-turn-0"></div>`;
+    document.body.innerHTML = `<div data-is-streaming="false">First convo</div>`;
 
     const callback = jest.fn();
     startObserver(callback);
+    callback.mockClear();
 
     // Simulate SPA navigation: remove old container and add new one
     document.body.innerHTML = '';
-    const newTurn = document.createElement('div');
-    newTurn.setAttribute('data-testid', 'conversation-turn-0');
-    document.body.appendChild(newTurn);
+    const wrapper = document.createElement('div');
+    document.body.appendChild(wrapper);
 
     await new Promise((r) => setTimeout(r, 0));
 
     // Now add an assistant message in the new container
     const msg = document.createElement('div');
-    msg.setAttribute('data-message-author-role', 'assistant');
+    msg.setAttribute('data-is-streaming', 'false');
     msg.textContent = 'Response after navigation';
-    newTurn.appendChild(msg);
+    wrapper.appendChild(msg);
 
     await new Promise((r) => setTimeout(r, 0));
 
@@ -85,15 +83,16 @@ describe('observer', () => {
   });
 
   it('stopObserver disconnects cleanly', async () => {
-    document.body.innerHTML = `<div data-testid="conversation-turn-0"></div>`;
+    document.body.innerHTML = `<div data-is-streaming="false">AI msg</div>`;
 
     const callback = jest.fn();
     startObserver(callback);
+    callback.mockClear();
     stopObserver();
 
     // Mutation after stop should not trigger callback
     const msg = document.createElement('div');
-    msg.setAttribute('data-message-author-role', 'assistant');
+    msg.setAttribute('data-is-streaming', 'false');
     document.body.appendChild(msg);
 
     await new Promise((r) => setTimeout(r, 0));

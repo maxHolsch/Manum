@@ -30,10 +30,9 @@ function handleCopy(_event: Event): void {
   if (!isAssistantMessage(anchorElement)) return;
 
   // Find the nearest assistant message element for ID extraction
-  const messageEl =
-    anchorElement.getAttribute('data-message-author-role') === 'assistant'
-      ? anchorElement
-      : (anchorElement.closest('[data-message-author-role="assistant"]') ?? anchorElement);
+  const messageEl = anchorElement.hasAttribute('data-is-streaming')
+    ? anchorElement
+    : (anchorElement.closest('[data-is-streaming]') ?? anchorElement);
 
   const record: Omit<CopyRecord, 'id'> = {
     selectedText,
